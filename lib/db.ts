@@ -37,7 +37,7 @@ export interface UserData {
 export class User extends Entity<UserData> {};
 
 export interface CommentData {
-	user: Uid,
+	userId: Uid,
 	projectId: Uid,
 	comment: string,
 	timestamp: Date
@@ -106,7 +106,7 @@ export class Collection<T extends Entity<any>> {
 		this._firestore_collec = db.collectionRaw(name);
 	};
 	async save(entity: T){
-		await this._firestore_collec.doc(entity.uid).set(entity.data);
+		await this._firestore_collec.doc(entity.uid).update(entity.data);
 	};
 	async add(entity: T){
 		const { id } = await this._firestore_collec.add(entity.data);

@@ -14,7 +14,6 @@ const auth = new AuthHandler;
 
 export const getServerSideProps = async function({ req }){
 	const sessionCookie: string = req.cookies.session;
-	console.log(sessionCookie);
 	
 	if(!sessionCookie){
 		return {
