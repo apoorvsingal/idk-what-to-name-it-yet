@@ -33,7 +33,7 @@ export const signupWithEmail = async (email: string, password: string, username:
 			user: {
 				username,
 				bio
-			} 
+			}
 		})
 	}).then(res => res.json());
 

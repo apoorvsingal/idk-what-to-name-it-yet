@@ -10,7 +10,7 @@ export default async (req, res) => {
 		const idToken: string = req.body.idToken;
 		const sessionCookie = await auth.getSessionCookie(idToken);
 		
-		res.setHeader("Set-Cookie", serialize("session", sessionCookie.cookie, { maxAge: sessionCookie.maxAge, httpOnly: true, secure: false, path: "/" }));
+		res.setHeader("Set-Cookie", serialize("session", sessionCookie.cookie, { maxAge: sessionCookie.maxAge, httpOnly: true, secure: process.env.NODE_ENV == "production", path: "/" }));
 		res.send({ ok: true });
 	} catch(err){
 		console.error(err);
