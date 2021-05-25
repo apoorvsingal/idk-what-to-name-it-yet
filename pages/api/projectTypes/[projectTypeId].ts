@@ -4,17 +4,18 @@ const db = new Database;
 
 export default async (req, res) => {
 	await db.init();
+	const projectTypeId: string = req.query.projectTypeId;
 
 	switch(req.method){
 	case "GET":
-		res.send(await db.projectTypes().find([], { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
+		res.send(await db.projectTypes().get(projectTypeId));
 		break;
-	case "POST":
+	case "PUT":
 		// auth
-		await db.projectTypes().add(new ProjectType(null, req.body));
-		res.status(200).end();
+		await db.projectTypes().save(new ProjectType(projectTypeId, req.body));
+		res.send({ ok: true });
 		break;
-	default:
+	default: 
 		res.status(400).end();
 		break;
 	}

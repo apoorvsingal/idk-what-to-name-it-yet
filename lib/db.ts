@@ -40,6 +40,7 @@ export class User extends Entity<UserData> {};
 
 export interface CommentData {
 	user: Uid,
+	projectId: Uid,
 	comment: string,
 	timestamp: Date
 };
@@ -51,7 +52,7 @@ export interface ProjectData {
 	url: Url,
 	description: string,
 	upvotes: Vote[],
-	comments: Comment[],
+	comments: Uid[],
 	edits: { type: Uid, url: Url, description: string, timestamp: Date }[],
 	timestamp: Date
 };
@@ -90,6 +91,9 @@ export class Database {
 	};
 	techStacks(): Collection<TechStack> {
 		return this.collection<TechStack>(TechStack, "techStacks");
+	};
+	comments(): Collection<Comment> {
+		return this.collection<Comment>(Comment, "comments");
 	};
 };
 

@@ -1,18 +1,18 @@
-import { Database, TechStack } from "../../../lib/db";
+import { Uid, Database, User } from "../../../lib/db";
 
 const db = new Database;
 
 export default async (req, res) => {
 	await db.init();
-	const uid: string = req.query.uid;
+	const userId: Uid = req.query.userId;
 
 	switch(req.method){
 	case "GET":
-		res.send(await db.techStacks().get(uid));
+		res.send(await db.projects().get(userId));
 		break;
 	case "PUT":
 		// auth
-		await db.techStacks().save(new TechStack(uid, req.body));
+		await db.users().save(new User(userId, req.body));
 		res.send({ ok: true });
 		break;
 	default: 
