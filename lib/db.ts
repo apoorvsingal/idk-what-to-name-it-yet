@@ -1,8 +1,11 @@
 import { initializeApp } from "firebase-admin";
 import admin, { credential } from "./firebase/admin";
 
+export type Uid = string;
+export type Url = string;
+
 export class Entity<T> {
-	uid: string;
+	uid: Uid;
 	data: T;
 
 	constructor(uid: string, data: T){
@@ -16,158 +19,62 @@ export interface TechStackData {
 	name: string,
 	description: string
 };
-export interface TechStackMeta {
-	uid: string,
-	icon: string, // url
-	name: string
-};
-
-export class TechStack extends Entity<TechStackData> {
-	constructor(uid: string, data: TechStackData){
-		super(uid, data);
-	};
-	meta(): TechStackMeta {
-		return {
-			uid: this.uid,
-			icon: this.data.icon,
-			name: this.data.name
-		};
-	};
-};
+export class TechStack extends Entity<TechStackData> {};
 
 export interface ProjectTypeData {
-	icon: string, // url
+	icon: Url,
 	name: string,
 	description: string,
 	stack: string
 };
-export interface ProjectTypeMeta {
-	uid: string,
-	icon: string, // url
-	name: string,
-	stack: string
-};
-export class ProjectType extends Entity<ProjectTypeData> {
-	constructor(uid: string, data: ProjectTypeData){
-		super(uid, data);
-	};
-	meta(): ProjectTypeMeta {
-		return {
-			uid: this.uid,
-			icon: this.data.icon,
-			name: this.data.name,
-			stack: this.data.stack
-		};
-	};
-};
+export class ProjectType extends Entity<ProjectTypeData> {};
 
 export interface UserData {
 	username: string,
 	displayName: string,
 	bio: string,
-	photoURL: string, // url
+	photoURL: Url,
 	upvotes: number
 };
-export interface UserMeta {
-	uid: string,
-	username: string,
-	displayName: string,
-	photoURL: string // url
-};
-export class User extends Entity<UserData> {
-	constructor(uid: string, data: UserData){
-		super(uid, data);
-	}
-	meta(): UserMeta {
-		return {
-			uid: this.uid,
-			username: this.data.username,
-			displayName: this.data.displayName,
-			photoURL: this.data.photoURL
-		}
-	};
-};
+export class User extends Entity<UserData> {};
 
 export interface CommentData {
-	user: UserMeta,
+	user: Uid,
 	comment: string,
 	timestamp: Date
 };
-export interface CommentMeta {
-	uid: string,
-	comment: string,
-	user: UserMeta,
+export class Comment extends Entity<CommentData> {};
+
+export interface ProjectData {
+	user: Uid,
+	type: Uid,
+	url: Url,
+	description: string,
+	upvotes: Vote[],
+	comments: Comment[],
+	edits: { type: Uid, url: Url, description: string, timestamp: Date }[],
 	timestamp: Date
 };
-export class Comment extends Entity<CommentData> {
-	constructor(uid: string, data: CommentData){
-		super(uid, data);
-	}
-	meta(): CommentMeta {
-		return {
-			uid: this.uid,
-			comment: this.data.comment,
-			user: this.data.user,
-			timestamp: this.data.timestamp
-		}
-	};
-};
+export class Project extends Entity<ProjectData> {};
 
 export class Vote {
-	user: UserMeta;
+	user: Uid;
 	timestamp: Date;
 
-	constructor(user: UserMeta, timestamp: Date){
+	constructor(user: Uid, timestamp: Date){
 		this.user = user;
 		this.timestamp = timestamp;
 	}
 };
 
-export interface ProjectData {
-	user: UserMeta,
-	type: ProjectTypeMeta,
-	url: string,
-	description: string,
-	upvotes: Vote[],
-	comments: Comment[],
-	edits: ProjectMeta[],
-	timestamp: Date
-};
-export interface ProjectMeta {
-	uid: string,
-	type: ProjectTypeMeta,
-	url: string,
-	description: string,
-	timestamp: Date
-};
-export class Project extends Entity<ProjectData> {
-	constructor(uid: string, data: ProjectData){
-		super(uid, data);
-	};
-	meta(): ProjectMeta {
-		return {
-			uid: this.uid,
-			type: this.data.type,
-			url: this.data.url,
-			description: this.data.description,
-			timestamp: this.data.timestamp
-		};
-	};
-};
-
 export class Database {
-	private _firestore_db: admin.firestore.Firestore;
-	private _inited: boolean = false;
-
 	async init(){
-		if(!this._inited){
+		if (!admin.apps.length) {
 			await admin.initializeApp({ credential });
-			this._firestore_db = admin.firestore();
-			this._inited = true;
 		}
 	};
 	collectionRaw(name: string): admin.firestore.CollectionReference {
-		return this._firestore_db.collection(name);
+		return admin.firestore().collection(name);
 	};
 	collection<T extends Entity<any>>(TConstructor: { new (uid: string, data: any): T; }, name: string): Collection<T> {
 		return new Collection<T>(TConstructor, this, name);
@@ -199,6 +106,10 @@ export class Collection<T extends Entity<any>> {
 	async save(entity: T){
 		await this._firestore_collec.doc(entity.uid).set(entity.data);
 	};
+	async add(entity: T){
+		const { id } = await this._firestore_collec.add(entity.data);
+		entity.uid = id;
+	};
 	async get(uid: string): Promise<T> {
 		const docRef = await this._firestore_collec.doc(uid).get();
 		
@@ -207,7 +118,7 @@ export class Collection<T extends Entity<any>> {
 		}
 		return new this._TConstructor(uid, docRef.data());
 	};
-	async find(queries: Array<[string, string, any]>, options?: { offset: number, limit: number, order: { by: string, direction: string } }){
+	async find(queries: Array<[string, string, any]>, options?: { offset?: number, limit?: number, order?: { by: string, direction: string } }){
 		let queryRef: admin.firestore.CollectionReference | admin.firestore.Query = this._firestore_collec;
 
 		for(let [prop, operator, value] of queries){

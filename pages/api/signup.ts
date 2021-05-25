@@ -1,15 +1,11 @@
-import nc from "next-connect";
-import express from "express";
-import { UserMeta } from "../../lib/db";
-import admin from "../../lib/firebase/admin";
 import { Database } from "../../lib/db";
+import { AuthHandler, NewUser } from "../../lib/auth";
 
-const db = new Database;
+const auth = new AuthHandler;
 
 export default async (req, res) => {
-	await db.init();
+	await auth.init();
 	const user: NewUser = req.body;
 
-	await admin.auth().createUser(user);
 	res.send("ok");
 };
