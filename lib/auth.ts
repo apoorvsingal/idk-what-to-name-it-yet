@@ -3,31 +3,30 @@ import { Database, User, UserData } from "./db";
 import { userSetter } from "core-js/fn/symbol";
 
 export interface NewUser {
-	email: string,
 	username: string,
-	displayName: string,
-	password: string
+	bio?: string
 };
 
 export class AuthHandler {
 	private _db: Database;
 
+	constructor(db?: Database){
+		this._db = db || new Database;
+	}
 	async init(){
 		await this._db.init();
 	}
-	async createUser(idToken: string, username, bio): Promise<User> {
+	async createUser(idToken: string, userMeta: NewUser): Promise<User> {
 		const { uid } = await this.verifyIdToken(idToken);
 		const firebaseUser = await admin.auth().getUser(uid);
 
 		const user: User = new User(uid, {
-			username: null,
-			displayName: firebaseUser.displayName,
-			photoURL: firebaseUser.photoURL,
-			bio: null,
+			username: userMeta.username,
+			bio: userMeta.bio,
 			upvotes: 0
 		});
 		await this._db.users().save(user);
-
+		
 		return user;
 	};
 	verifyIdToken(idToken: string){

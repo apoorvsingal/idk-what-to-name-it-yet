@@ -31,9 +31,7 @@ export class ProjectType extends Entity<ProjectTypeData> {};
 
 export interface UserData {
 	username: string,
-	displayName: string,
 	bio: string,
-	photoURL: Url,
 	upvotes: number
 };
 export class User extends Entity<UserData> {};
