@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
 import firebase from "../lib/firebase/client";
+import { loginWithEmail } from "../lib/auth/client";
 
 interface ValidationErrors {
 	email?: string,
@@ -40,9 +41,12 @@ const LoginPage = function(){
 	}, []);
 
 	const onSubmit = async function(values: FormInput){
-		await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-		await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
-		router.push("/");
+		try {
+			await loginWithEmail(values.email, values.password);
+		} catch(err){
+			console.error(err);
+			// hanadle error
+		}
 	};
 
 	return (
@@ -67,6 +71,5 @@ const LoginPage = function(){
 		</>
 	);
 };
-
 
 export default LoginPage;

@@ -1,13 +1,18 @@
-import { AuthHandler } from "../../lib/auth";
+import { AuthHandler } from "../../lib/auth/server";
 
 const auth = new AuthHandler;
 
 export default async (req, res) => {
-	await auth.init();
+	try {
+		await auth.init();
 	
-	const idToken: string = req.cookies.idToken;
-	const crsfToken: string = req.cookies.crsfToken;
-
-	
-	res.send("ok");
+		const idToken: string = req.cookies.idToken;
+		const sessionCookie = await auth.getSessionCookie(idToken);
+		
+		res.cookie("session", sessionCookie.cookie, { maxAge: sessionCookie.maxAge, httpOnly: true, secure: true });
+		res.send({ ok: true });
+	} catch(err){
+		console.error(err);
+		res.send({ error: err.message });
+	}
 };

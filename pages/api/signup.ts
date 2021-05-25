@@ -1,4 +1,4 @@
-import { AuthHandler, NewUser } from "../../lib/auth";
+import { AuthHandler, NewUser } from "../../lib/auth/server";
 
 const auth = new AuthHandler;
 
