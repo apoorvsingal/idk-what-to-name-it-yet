@@ -1,4 +1,5 @@
 import { AuthHandler, NewUser } from "../../lib/auth/server";
+import { serialize } from "cookie";
 
 const auth = new AuthHandler;
 
@@ -14,7 +15,9 @@ export default async (req, res) => {
 	try {
 		await auth.init();
 		await auth.createUser(idToken, user);
-
+		const sessionCookie = await auth.getSessionCookie(idToken);
+		
+		res.setHeader("Set-Cookie", serialize("session", sessionCookie.cookie, { maxAge: sessionCookie.maxAge, httpOnly: true, secure: process.env.NODE_ENV == "production", path: "/" }));
 		res.send({ ok: true });
 	} catch(error){
 		console.error(error);

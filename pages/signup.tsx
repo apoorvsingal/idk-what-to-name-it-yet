@@ -73,7 +73,7 @@ const SignupPage = function(){
 	return (
 		<>
 			<Formik
-				initialValues={{ email: '', password: '', displayName: '', bio: '', username: '' } as any}
+				initialValues={{ email: '', password: '', password2: '', displayName: '', bio: '', username: '' } as any}
 				validate={validateForm as any}
 				onSubmit={onSubmit}
 			>

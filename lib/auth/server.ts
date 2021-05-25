@@ -20,6 +20,10 @@ export class AuthHandler {
 		const { uid } = await this.verifyIdToken(idToken);
 		const firebaseUser = await admin.auth().getUser(uid);
 
+		if((await this._db.users().find([["username", "==", userMeta.username]], { limit: 1})).length == 1){
+			await admin.auth().deleteUser(uid);
+			throw new Error("username already exists");
+		}
 		const user: User = new User(uid, {
 			username: userMeta.username,
 			bio: userMeta.bio,
@@ -34,9 +38,9 @@ export class AuthHandler {
 
 		return {
 			uid: firebaseUser.uid,
-			displayName: firebaseUser.displayName,
+			displayName: firebaseUser.displayName || null,
 			email: firebaseUser.email,
-			photoURL: firebaseUser.photoURL,
+			photoURL: firebaseUser.photoURL || null,
 			username: data.username,
 			upvotes: data.upvotes,
 			bio: data.bio
