@@ -18,9 +18,7 @@ export default async (req, res) => {
 		if(userId){
 			query.push(["userId", "==", userId]);
 		}
-		const r = await db.projects().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) });
-		console.log(r);
-		res.send(r);
+		res.send(await db.projects().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
 		break;
 	case "POST":
 		await db.projects().add(new Project(null, req.body));
