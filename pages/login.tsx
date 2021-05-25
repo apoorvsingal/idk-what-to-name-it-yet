@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { useRouter } from "next/router";
 import firebase from "../lib/firebase/client";
 import { loginWithEmail } from "../lib/auth/client";
+import { AuthHandler } from "../lib/auth/server";
 
 interface ValidationErrors {
 	email?: string,
@@ -34,15 +35,10 @@ const validateForm = (values: FormInput): ValidationErrors => {
 const LoginPage = function(){
 	const router = useRouter();
 
-	useEffect(() => {
-		if(firebase.auth().currentUser){
-			router.push("/");
-		}
-	}, []);
-
 	const onSubmit = async function(values: FormInput){
 		try {
 			await loginWithEmail(values.email, values.password);
+			router.push("/profile");
 		} catch(err){
 			console.error(err);
 			// hanadle error
@@ -58,18 +54,45 @@ const LoginPage = function(){
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 					<div>
+						Email:
 						{errors.email && touched.email && errors.email}
 						<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
+						<br/>
 
+						Password:
 						{errors.password && touched.password && errors.password}
-						<input name="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
+						<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
+						<br/>
 
-						<button disabled={isSubmitting} onClick={handleSubmit as any}>Login</button>
+						<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Login</button>
 					</div>
 				)}
 			</Formik>
 		</>
 	);
+};
+
+const auth = new AuthHandler;
+
+export const getServerSideProps = async function({ req }){
+	const sessionCookie: string = req.cookies.session;
+	
+	if(!sessionCookie){
+		return {};
+	}
+	try {
+		await auth.init();
+		const { uid } = await auth.verifySessionCookie(sessionCookie);
+		
+		return { 	
+			redirect: {
+				destination: "/profile",
+				permamnent: false
+			}
+		};
+	} catch(error){
+		return { props: { error: error.message }};
+	}
 };
 
 export default LoginPage;

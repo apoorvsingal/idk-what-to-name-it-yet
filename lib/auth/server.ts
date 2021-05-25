@@ -26,8 +26,21 @@ export class AuthHandler {
 			upvotes: 0
 		});
 		await this._db.users().save(user);
-		
 		return user;
+	};
+	async getUser(uid: string): Promise<object> {
+		const firebaseUser: admin.auth.UserRecord = await admin.auth().getUser(uid);
+		const { data } = await this._db.users().get(uid);
+
+		return {
+			uid: firebaseUser.uid,
+			displayName: firebaseUser.displayName,
+			email: firebaseUser.email,
+			photoURL: firebaseUser.photoURL,
+			username: data.username,
+			upvotes: data.upvotes,
+			bio: data.bio
+		};
 	};
 	verifyIdToken(idToken: string){
 		return admin.auth().verifyIdToken(idToken);
@@ -44,5 +57,8 @@ export class AuthHandler {
 			cookie: await admin.auth().createSessionCookie(idToken, { expiresIn }),
 			maxAge: expiresIn
 		};
+	};
+	verifySessionCookie(cookie: string): Promise<admin.auth.DecodedIdToken> {
+		return admin.auth().verifySessionCookie(cookie, true);
 	};
 };
