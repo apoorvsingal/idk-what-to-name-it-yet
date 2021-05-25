@@ -34,7 +34,6 @@ const LoginPage = function(){
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log(firebase.auth().currentUser)
 		if(firebase.auth().currentUser){
 			router.push("/");
 		}
