@@ -1,13 +1,26 @@
-import { Database, Project } from "../../../lib/db";
+import { Database, Project, Uid } from "../../../lib/db";
 
 const db = new Database;
 
 export default async (req, res) => {
 	await db.init();
+	
+	const projectTypeId: Uid = req.query.projectTypeId;
+	const userId: Uid = req.query.userId;
 
 	switch(req.method){
 	case "GET":
-		res.send(await db.projects().find([], { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
+		const query = [];
+
+		if(projectTypeId){
+			query.push(["projectTypeId", "==", projectTypeId]);
+		}
+		if(userId){
+			query.push(["userId", "==", userId]);
+		}
+		const r = await db.projects().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) });
+		console.log(r);
+		res.send(r);
 		break;
 	case "POST":
 		await db.projects().add(new Project(null, req.body));

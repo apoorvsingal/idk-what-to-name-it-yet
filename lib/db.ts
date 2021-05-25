@@ -47,8 +47,8 @@ export interface CommentData {
 export class Comment extends Entity<CommentData> {};
 
 export interface ProjectData {
-	user: Uid,
-	type: Uid,
+	userId: Uid,
+	projectTypeId: Uid,
 	url: Url,
 	description: string,
 	upvotes: Vote[],

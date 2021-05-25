@@ -4,7 +4,7 @@ const db = new Database;
 
 export default async (req, res) => {
 	await db.init();
-	
+
 	const projectId: Uid = req.query.projectId;
 	const userId: Uid = req.query.userId;
 
@@ -18,7 +18,7 @@ export default async (req, res) => {
 		if(userId){
 			query.push(["userId", "==", userId]);
 		}
-		res.send(await db.projects().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
+		res.send(await db.comments().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
 		break;
 	case "POST":
 		await db.comments().add(new Comment(null, req.body));

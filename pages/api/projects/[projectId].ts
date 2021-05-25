@@ -4,9 +4,11 @@ const db = new Database;
 
 export default async (req, res) => {
 	await db.init();
+
+	const projectTypeId: Uid = req.query.projectTypeId;
 	const projectId: Uid = req.query.projectId;
 	const userId: Uid = req.query.userId;
-	
+
 	switch(req.method){
 	case "GET":
 		res.send(await db.projects().get(projectId));

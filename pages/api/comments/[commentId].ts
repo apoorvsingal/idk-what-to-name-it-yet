@@ -4,6 +4,7 @@ const db = new Database;
 
 export default async (req, res) => {
 	await db.init();
+	
 	const commentId: Uid = req.query.commentId;
 	const projectId: Uid = req.query.projectId;
 	const userId: Uid = req.query.userId;
