@@ -6,7 +6,7 @@ export default async (req, res) => {
 	try {
 		await auth.init();
 	
-		const idToken: string = req.cookies.idToken;
+		const idToken: string = req.body.idToken;
 		const sessionCookie = await auth.getSessionCookie(idToken);
 		
 		res.cookie("session", sessionCookie.cookie, { maxAge: sessionCookie.maxAge, httpOnly: true, secure: true });
