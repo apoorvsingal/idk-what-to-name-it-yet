@@ -39,7 +39,10 @@ export class User extends Entity<UserData> {};
 export interface CommentData {
 	userId: Uid,
 	projectId: Uid,
+	replyTo: Uid,
 	comment: string,
+	replies: Uid[],
+	edits: { comment: string, timestamp: Date }[],
 	timestamp: Date
 };
 export class Comment extends Entity<CommentData> {};
@@ -51,7 +54,7 @@ export interface ProjectData {
 	description: string,
 	upvotes: Vote[],
 	comments: Uid[],
-	edits: { type: Uid, url: Url, description: string, timestamp: Date }[],
+	edits: { projectTypeId: Uid, url: Url, description: string, timestamp: Date }[],
 	timestamp: Date
 };
 export class Project extends Entity<ProjectData> {};
@@ -112,13 +115,16 @@ export class Collection<T extends Entity<any>> {
 		const { id } = await this._firestore_collec.add(entity.data);
 		entity.uid = id;
 	};
-	async get(uid: string): Promise<T> {
+	async get(uid: Uid): Promise<T> {
 		const docRef = await this._firestore_collec.doc(uid).get();
 		
 		if(!docRef.exists){
 			throw new Error(`${uid} does not exist.`);
 		}
 		return new this._TConstructor(uid, docRef.data());
+	};
+	async delete(uid: Uid){
+		await this._firestore_collec.doc(uid).delete();
 	};
 	async find(queries: Array<[string, string, any]>, options?: { offset?: number, limit?: number, order?: { by: string, direction: string } }){
 		let queryRef: admin.firestore.CollectionReference | admin.firestore.Query = this._firestore_collec;

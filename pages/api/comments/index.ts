@@ -1,14 +1,15 @@
-import { AuthHandler } from "../../../lib/auth/server";
-import { Uid, Database, Project, Comment, CommentData } from "../../../lib/db";
+import { Uid, Database, Comment, CommentData, Project } from "../../../lib/db";
+import { NextApiRequest, NextApiResponse } from "next";
+import { auth, firebase, error } from "../../../lib/middlewares";
+import admin from "../../../lib/firebase/admin";
 
 const db = new Database;
-const auth = new AuthHandler;
 
-const getComment = async (req, res) => {
+const getComment = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	const query = [];
 
-	const projectId: Uid = req.query.projectId;
-	const userId: Uid = req.query.userId;
+	const projectId: Uid = req.query.projectId.toString();
+	const userId: Uid = req.query.userId.toString();
 
 	if(projectId){
 		query.push(["projectId", "==", projectId]);
@@ -19,44 +20,30 @@ const getComment = async (req, res) => {
 	res.send(await db.comments().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
 };
 
-const addComment = async (req, res) => {
+const addComment = async (req, res, context?: any) => {
 	const commentData: CommentData = req.body;
-	const sessionCookie: string = req.cookies.session;
-
-	try {
-		const { uid: userId } = await auth.verifySessionCookie(sessionCookie);
-
-		if(userId != commentData.userId){
-			throw new Error;
-		}
-	} catch(error){
-		return res.status(401).send({ error: "Unauthorized" });
-	}
 	
-	try {
-		await db.projects().get(commentData.projectId);
-	} catch(error){
-		return res.status(400).send({ error: "Invalid project" });
-	}
-
-	await db.comments().add(new Comment(null, req.body));
+	await db.comments().add(new Comment(null, commentData));
 	res.send({ ok: true });
 };
 
-export default async (req, res) => {
-	try {
-		await auth.init();
-		await db.init();
-
+export default error(firebase(auth(
+	async (req: NextApiRequest, res: NextApiResponse, context?: object): Promise<object> => {
 		switch(req.method){
 		case "GET":
-			return await getComment(req, res);
+			return void await getComment(req, res, context);
 		case "POST":
-			return await addComment(req, res);
+			return void await addComment(req, res, context);
 		}
 		res.status(400).end();
-	} catch(error){
-		console.error(error);
-		res.status(500).send({ error: error.message });
+	}, {
+		validator: async (req: NextApiRequest, res: NextApiResponse, context?: { decodedIdToken: admin.auth.DecodedIdToken }): Promise<object> => {
+			if(req.method == "GET"){
+				return;
+			}
+			const commentData: CommentData = req.body;
+			const project: Project = await db.projects().get(commentData.projectId);
+			return { project };
+		}
 	}
-};
+)));

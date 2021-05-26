@@ -6,6 +6,7 @@ const auth = new AuthHandler;
 
 const getProject = async (req, res) => {
 	const projectId: Uid = req.query.projectId;
+	res.send(await db.projects().get(projectId));
 };
 
 const addProject = async (req, res) => {
@@ -13,7 +14,7 @@ const addProject = async (req, res) => {
 	const projectData: ProjectData = req.body;
 	const sessionCookie: string = req.cookies.session;
 
-	let project;
+	let project: Project;
 
 	try {
 		const { uid: userId } = await auth.verifySessionCookie(sessionCookie);
@@ -25,17 +26,19 @@ const addProject = async (req, res) => {
 	} catch(error){
 		return res.status(401).send({ error: "Unauthorized" });
 	}
+	project.data.edits.push({ 
+		projectTypeId: project.data.projectTypeId, 
+		description: project.data.description,
+		timestamp: project.data.timestamp,
+		url: project.data.url
+	});
 
-	const edits = project.data.edits;
+	project.data.projectTypeId = projectData.projectTypeId;
+	project.data.description = projectData.description;
+	project.data.url = projectData.url;
+	project.data.timestamp = new Date;
 
-	edits.push(project.data);
-	
-	projectData.edits = edits;
-	projectData.timestamp = new Date;
-
-	project.data = projectData;
 	await db.projects().save(project);
-	
 	res.send({ ok: true });
 };
 

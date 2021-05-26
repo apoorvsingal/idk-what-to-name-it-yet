@@ -1,53 +1,58 @@
-import { AuthHandler } from "../../../lib/auth/server";
-import { Uid, Database, ProjectType, Comment, CommentData } from "../../../lib/db";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Uid, Database, Comment, CommentData } from "../../../lib/db";
+import { error, firebase, auth } from "../../../lib/middlewares";
+import admin from "../../../lib/firebase/admin";
 
 const db = new Database;
-const auth = new AuthHandler;
 
-const getComment = async (req, res) => {
-	const commentId: Uid = req.query.commentId;
+const getComment = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const commentId: Uid = req.query.commentId.toString();
 	res.send(await db.comments().get(commentId));
 };
 
-const editComment = async (req, res) => {
-	const commentId: Uid = req.query.commentId;
+const editComment = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	const commentData: CommentData = req.body;
-	const sessionCookie: string = req.cookies.session;
+	const comment: Comment = context.comment;
 
-	try {
-		const { uid: userId } = await auth.verifySessionCookie(sessionCookie);
+	comment.data.edits.push({ 
+		comment: comment.data.comment, 
+		timestamp: comment.data.timestamp
+	});
+	comment.data.comment = commentData.comment;
+	comment.data.timestamp = new Date;
 
-		if(userId != commentData.userId){
-			throw new Error;
-		}
-	} catch(error){
-		return res.status(401).send({ error: "Unauthorized" });
-	}
-
-	try {
-		await db.projects().get(commentData.projectId);
-	} catch(error){
-		return res.status(400).send({ error: "Invalid project" });
-	}
-
-	await db.comments().save(new Comment(commentId, req.body));
+	await db.comments().save(comment);
 	res.send({ ok: true });
 };
 
-export default async (req, res) => {
-	try {
-		await auth.init();
-		await db.init();
+const deleteComment = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const commentId: Uid = req.query.commentId.toString();
+	await db.comments().delete(commentId);
+};
 
+export default error(firebase(auth(
+	async (req: NextApiRequest, res: NextApiResponse, context?: object): Promise<object> => {
 		switch(req.method){
 		case "GET":
-			return await getComment(req, res);
+			return void await getComment(req, res, context);
 		case "PUT":
-			return await editComment(req, res);
+			return void await editComment(req, res, context);
+		case "DELETE":
+			return void await deleteComment(req, res, context);
 		}
 		res.status(400).end();
-	} catch(error){
-		console.error(error);
-		res.status(500).send({ error: error.message });
+	}, {
+		validator: async (req: NextApiRequest, res: NextApiResponse, context?: { decodedIdToken: admin.auth.DecodedIdToken }): Promise<object> => {
+			if(req.method == "GET"){
+				return;
+			}
+			const commentId: Uid = req.query.commentId.toString();
+			const comment = await db.comments().get(commentId);
+	
+			if(context.decodedIdToken.uid != comment.data.userId){
+				throw new Error;
+			}
+			return { comment };
+		}
 	}
-};
+)));
