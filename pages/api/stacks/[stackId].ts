@@ -1,22 +1,30 @@
-import { Database, TechStack } from "../../../lib/db";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Database, TechStack, Uid } from "../../../lib/db";
+import { error, firebase, auth } from "../../../lib/middlewares";
 
 const db = new Database;
 
-export default async (req, res) => {
-	await db.init();
-	const stackId: string = req.query.stackId;
-
-	switch(req.method){
-	case "GET":
-		res.send(await db.techStacks().get(stackId));
-		break;
-	case "PUT":
-		// auth
-		await db.techStacks().save(new TechStack(stackId, req.body));
-		res.send({ ok: true });
-		break;
-	default: 
-		res.status(400).end();
-		break;
-	}
+const getStack = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const stackId: Uid = req.query.stackId.toString();
+	res.send(await db.techStacks().get(stackId));
 };
+
+const addStack = async (req, NextApiRequest, res: NextApiResponse, context?: any) => {
+	
+};
+
+export default error(firebase(auth(
+	async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+		switch(req.method){
+		case "GET":
+			return await getStack(req, res, context);
+		case "POST":
+			return await addStack(req, res, context);
+		}
+		res.status(400).end();
+	}, {
+		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+
+		}
+	}
+)));

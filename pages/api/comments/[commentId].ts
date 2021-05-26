@@ -31,28 +31,25 @@ const deleteComment = async (req: NextApiRequest, res: NextApiResponse, context?
 };
 
 export default error(firebase(auth(
-	async (req: NextApiRequest, res: NextApiResponse, context?: object): Promise<object> => {
+	async (req: NextApiRequest, res: NextApiResponse, context?: object) => {
 		switch(req.method){
 		case "GET":
-			return void await getComment(req, res, context);
+			return await getComment(req, res, context);
 		case "PUT":
-			return void await editComment(req, res, context);
+			return await editComment(req, res, context);
 		case "DELETE":
-			return void await deleteComment(req, res, context);
+			return await deleteComment(req, res, context);
 		}
 		res.status(400).end();
 	}, {
-		validator: async (req: NextApiRequest, res: NextApiResponse, context?: { decodedIdToken: admin.auth.DecodedIdToken }): Promise<object> => {
-			if(req.method == "GET"){
-				return;
-			}
+		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 			const commentId: Uid = req.query.commentId.toString();
 			const comment = await db.comments().get(commentId);
 	
 			if(context.decodedIdToken.uid != comment.data.userId){
 				throw new Error;
 			}
-			return { comment };
+			context.comment = comment;
 		}
 	}
 )));

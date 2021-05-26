@@ -1,31 +1,20 @@
-import { AuthHandler } from "../../../lib/auth/server";
+import { NextApiRequest, NextApiResponse } from "next";
 import { Uid, Database, Project, ProjectData } from "../../../lib/db";
+import { auth, error, firebase } from "../../../lib/middlewares";
 
 const db = new Database;
-const auth = new AuthHandler;
 
-const getProject = async (req, res) => {
-	const projectId: Uid = req.query.projectId;
+const getProject = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const projectId: Uid = req.query.projectId.toString();
 	res.send(await db.projects().get(projectId));
 };
 
-const addProject = async (req, res) => {
-	const projectId: Uid = req.query.projectId;
+const addProject = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const projectId: Uid = req.query.projectId.toString();
 	const projectData: ProjectData = req.body;
-	const sessionCookie: string = req.cookies.session;
 
-	let project: Project;
+	const project: Project = context.project;
 
-	try {
-		const { uid: userId } = await auth.verifySessionCookie(sessionCookie);
-		project = await db.projects().get(projectId);
-
-		if(userId != projectData.userId || userId != project.data.userId){
-			throw new Error;
-		}
-	} catch(error){
-		return res.status(401).send({ error: "Unauthorized" });
-	}
 	project.data.edits.push({ 
 		projectTypeId: project.data.projectTypeId, 
 		description: project.data.description,
@@ -42,19 +31,25 @@ const addProject = async (req, res) => {
 	res.send({ ok: true });
 };
 
-export default async (req, res) => {
-	try {
-		await db.init();
-
+export default error(firebase(auth(
+	async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 		switch(req.method){
 		case "GET":
-			return await getProject(req, res);
+			return await getProject(req, res, context);
 		case "PUT":
-			return await addProject(req, res);
+			return await addProject(req, res, context);
 		}
 		res.status(400).end();
-	} catch(error){
-		console.error(error);
-		res.status(500).send({ error: error.message });
+	},
+	{
+		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+			const projectId = req.query.projectId.toString();
+			const project: Project = await db.projects().get(projectId);
+
+			if(project.data.userId != context.decodedIdToken.uid){
+				throw new Error;
+			}
+			context.project = project;
+		}
 	}
-};
+)));

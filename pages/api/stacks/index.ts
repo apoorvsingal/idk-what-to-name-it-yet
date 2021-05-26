@@ -1,21 +1,32 @@
-import { Database, TechStack } from "../../../lib/db";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Database, TechStack, Uid } from "../../../lib/db";
+import { error, firebase, auth } from "../../../lib/middlewares";
 
 const db = new Database;
 
-export default async (req, res) => {
-	await db.init();
+const getStacks = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const offset: number = req.query.offset ? Number(req.query.offset) : 0;
+	const limit: number = req.query.limit ? Number(req.query.limit) : 10;
 
-	switch(req.method){
-	case "GET":
-		res.send(await db.techStacks().find([], { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
-		break;
-	case "POST":
-		// auth
-		await db.techStacks().add(new TechStack(null, req.body));
-		res.status(200).end();
-		break;
-	default:
-		res.status(400).end();
-		break;
-	}
+	res.send(await db.techStacks().find([], { offset, limit }));
 };
+
+const addStack = async (req, NextApiRequest, res: NextApiResponse, context?: any) => {
+	
+};
+
+export default error(firebase(auth(
+	async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+		switch(req.method){
+		case "GET":
+			return await getStacks(req, res, context);
+		case "POST":
+			// return await addStack(req, res, context);
+		}
+		res.status(400).end();
+	}, {
+		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+
+		}
+	}
+)));

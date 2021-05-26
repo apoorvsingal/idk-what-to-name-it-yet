@@ -2,12 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { AuthHandler } from "./auth/server";
 import admin, { credential } from "./firebase/admin";
 
-export type MiddlewareCallback = (req: NextApiRequest, res: NextApiResponse, context?: any) => Promise<object>;
+export type MiddlewareCallback = (req: NextApiRequest, res: NextApiResponse, context?: any) => Promise<void>;
 
 const authHandler: AuthHandler = new AuthHandler;
 
 export const error = (callback: MiddlewareCallback) => {
-	return async (req: NextApiRequest, res: NextApiResponse, context?: any): Promise<object> => {
+	return async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 		try {
 			await callback(req, res, context);
 		} catch(error){
@@ -19,29 +19,28 @@ export const error = (callback: MiddlewareCallback) => {
 };
 
 export const firebase = (callback: MiddlewareCallback) => {
-	return async (req: NextApiRequest, res: NextApiResponse, context?: any): Promise<object> => {
+	return async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 		if(admin.apps.length < 1){
 			await admin.initializeApp({ credential });
 		}
-		return await callback(req, res, context);
+		await callback(req, res, context);
 	};
 };
 
-export const auth = (callback: MiddlewareCallback, options?: { validator?: MiddlewareCallback }) => {
-	return async (req: NextApiRequest, res: NextApiResponse, context: any = {}): Promise<object> => {
+export const auth = (callback: MiddlewareCallback, options?: { validate?: MiddlewareCallback }) => {
+	return async (req: NextApiRequest, res: NextApiResponse, context: any = {}) => {
 		if(req.method == "GET"){
-			return await callback(req, res, context);
+			await callback(req, res, context);
 		}
 		try {
 			context.decodedIdToken = await authHandler.verifySessionCookie(req.cookies.session);
 			
-			if(options.validator) {
-				context = { ...context, ...(await options.validator(req, res, context) || {})};
+			if(options.validate) {
+				await options.validate(req, res, context);
 			}
 		} catch(error){
 			res.status(401).send({ error: "Unauthorized" });
-			return {};
 		}
-		return await callback(req, res, context);
+		await callback(req, res, context);
 	};
 };

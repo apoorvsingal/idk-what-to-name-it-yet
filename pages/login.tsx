@@ -72,7 +72,7 @@ const LoginPage = function(){
 	);
 };
 
-const auth = new AuthHandler;
+const authHandler = new AuthHandler;
 
 export const getServerSideProps = async function({ req }){
 	const sessionCookie: string = req.cookies.session;
@@ -81,16 +81,12 @@ export const getServerSideProps = async function({ req }){
 		return {};
 	}
 	try {
-		await auth.init();
-		const { uid } = await auth.verifySessionCookie(sessionCookie);
-		
-		return { 	
-			redirect: {
-				destination: "/profile",
-				permamnent: false
-			}
-		};
+		await authHandler.init();
+		await authHandler.verifySessionCookie(sessionCookie);
+
+		return { redirect: { destination: "/profile", permamnent: false } };
 	} catch(error){
+		console.error(error);
 		return { props: { error: error.message }};
 	}
 };

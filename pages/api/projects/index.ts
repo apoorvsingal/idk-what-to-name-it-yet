@@ -1,31 +1,52 @@
-import { Database, Project, Uid } from "../../../lib/db";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Database, Project, ProjectData, ProjectType, Uid } from "../../../lib/db";
+import { auth, error, firebase } from "../../../lib/middlewares";
 
 const db = new Database;
 
-export default async (req, res) => {
-	await db.init();
-	
-	const projectTypeId: Uid = req.query.projectTypeId;
-	const userId: Uid = req.query.userId;
+const getProjects = async(req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const projectTypeId: Uid = req.query.projectTypeId.toString();
+	const userId: Uid = req.query.userId.toString();
 
-	switch(req.method){
-	case "GET":
-		const query = [];
+	const offset: number = req.query.offset ? Number(req.query.offset) : 0;
+	const limit: number = req.query.limit ? Number(req.query.limit) : 10;
 
-		if(projectTypeId){
-			query.push(["projectTypeId", "==", projectTypeId]);
-		}
-		if(userId){
-			query.push(["userId", "==", userId]);
-		}
-		res.send(await db.projects().find(query, { offset: Number(req.query.offest), limit: Number(req.query.limit) }));
-		break;
-	case "POST":
-		await db.projects().add(new Project(null, req.body));
-		res.status(200).end();
-		break;
-	default:
-		res.status(400).end();
-		break;
+	const query = [];
+
+	if(projectTypeId){
+		query.push(["projectTypeId", "==", projectTypeId]);
 	}
+	if(userId){
+		query.push(["userId", "==", userId]);
+	}
+	res.send(await db.projects().find(query, { offset, limit }));
 };
+
+const addProject = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const projectData: ProjectData = req.body;
+
+	await db.projects().add(new Project(null, projectData));
+	res.send({ ok: true });
+};
+
+export default error(firebase(auth(
+	async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+		switch(req.method){
+		case "GET":
+			return await getProjects(req, res, context);
+		case "POST":
+			return await addProject(req, res, context);
+		}
+		res.status(400).end();
+	}, {
+		validate: async(req: NextApiRequest, res: NextApiResponse, context?: any) => {
+			const projectData: ProjectData = req.body;
+			
+			if(projectData.userId != context.decodedIdToken.uid){
+				throw new Error;
+			}
+			const projectType: ProjectType = await db.projectTypes().get(projectData.projectTypeId);
+			context.projectType = projectType;
+		}
+	}
+)));

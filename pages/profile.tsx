@@ -10,7 +10,7 @@ const ProfilePage = function({ user, error }){
 	)
 };
 
-const auth = new AuthHandler;
+const authHandler = new AuthHandler;
 
 export const getServerSideProps = async function({ req }){
 	const sessionCookie: string = req.cookies.session;
@@ -24,10 +24,10 @@ export const getServerSideProps = async function({ req }){
 		};
 	}
 	try {
-		await auth.init();
+		await authHandler.init();
 		
-		const { uid } = await auth.verifySessionCookie(sessionCookie);
-		const user = await auth.getUser(uid);
+		const { uid } = await authHandler.verifySessionCookie(sessionCookie);
+		const user = await authHandler.getUser(uid);
 
 		return { props: { user } };
 	} catch(error){
