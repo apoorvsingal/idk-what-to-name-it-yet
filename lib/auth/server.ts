@@ -27,7 +27,9 @@ export class AuthHandler {
 		const user: User = new User(uid, {
 			username: userMeta.username,
 			bio: userMeta.bio,
-			upvotes: 0
+			upvotes: 0,
+			completedProjectTypes: [],
+			startedProjectTypes: []
 		});
 		await this._db.users().save(user);
 		return user;

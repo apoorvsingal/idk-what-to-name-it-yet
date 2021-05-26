@@ -7,12 +7,13 @@ import { AuthHandler } from "../../lib/auth/server";
 import Image from "next/image";
 
 const validateForm = () => {
-
+	return {};
 };
 
 const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStack[] }){
 	const projectTypes = [];
-
+	console.log(stacks);
+	
 	const onSubmit = () => {
 
 	};
@@ -30,10 +31,25 @@ const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStac
 		>
 			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 				<Form>
+					<Listbox value={values.stack} onChange={handleChange}>
+						<Listbox.Button>{values.stack}</Listbox.Button>
+						<Listbox.Label>Choose Stack</Listbox.Label>
+						<Listbox.Options>
+							{stacks.map(stack => (
+								<Listbox.Option
+									key={stack.uid}
+									value={stack}
+								>
+									{stack.data.name}
+								</Listbox.Option>
+							))}
+						</Listbox.Options>
+					</Listbox>
+
 					<Field name="stack">
-						{({ field }) => {	
-							<Listbox {...field}>
-								<Listbox.Label>Choose Stack:</Listbox.Label>
+						{({ field }) => (
+							<Listbox {...field} as="div">
+								<Listbox.Label>Choose Stack</Listbox.Label>
 								<Listbox.Button>{field.value}</Listbox.Button>
 								<Listbox.Options>
 									{stacks.map(stack => (
@@ -41,19 +57,19 @@ const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStac
 											key={stack.uid}
 											value={stack}
 										>
-											<span>{stack.data.name}</span>
+											{stack.data.name}
 										</Listbox.Option>
 									))}
 								</Listbox.Options>
 							</Listbox>
-						}}
+						)}
 					</Field>
 					<ErrorMessage name="stack"/>
-					
+
 					<Field name="projectType">
 						{({ field }) => (
-							<Listbox {...field}>
-								<Listbox.Label>Choose Project:</Listbox.Label>
+							<Listbox {...field} as="div">
+								<Listbox.Label>Choose Project</Listbox.Label>
 								<Listbox.Button>{field.value}</Listbox.Button>
 								<Listbox.Options>
 									{stacks.map(stack => (
@@ -82,7 +98,7 @@ const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStac
 					<ErrorMessage name="url"/>
 					<Field name="url" type="text"/>
 
-					<button type="submit">Submit</button>
+					<button type="submit" disabled={isSubmitting}>Submit</button>
 				</Form>
 			)}
 		</Formik>
@@ -105,6 +121,7 @@ export const getServerSideProps = async function({ req }){
 		const { uid } = await authHandler.verifySessionCookie(sessionCookie);
 		const user = await authHandler.getUser(uid);
 
+		console.log(await stacksProm);
 		return { props: { user, stacks: (await stacksProm).map(e => ({...e})) } };
 	} catch(error){
 		console.error(error);
