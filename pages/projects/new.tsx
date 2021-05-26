@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Listbox } from '@headlessui/react'
 import { ProjectType, TechStack, User } from "../../lib/data";
 import { Database } from "../../lib/db";
@@ -11,6 +11,8 @@ const validateForm = () => {
 };
 
 const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStack[] }){
+	const projectTypes = [];
+
 	const onSubmit = () => {
 
 	};
@@ -27,56 +29,61 @@ const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStac
 			onSubmit={onSubmit}
 		>
 			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-				<>
-					<Listbox value={values.stack} onChange={handleChange}>
-						<Listbox.Label>Choose Stack:</Listbox.Label>
-						<Listbox.Button>{values.stack}</Listbox.Button>
-						<Listbox.Options>
-							{stacks.map(stack => (
-								<Listbox.Option
-									key={stack.uid}
-									value={stack}
-								>
-									{({ active, selected } : { active: boolean, selected: boolean }) => (
-										<span>{stack.data.name}</span>
-									)}
-								</Listbox.Option>
-							))}
-						</Listbox.Options>
-					</Listbox>
-					{errors.stack && touched.stack && errors.stack}
-
-					<Listbox value={values.projectType} onChange={handleChange}>
-						<Listbox.Label>Choose Project:</Listbox.Label>
-						<Listbox.Button>{values.seletedStack}</Listbox.Button>
-						<Listbox.Options>
-							{stacks.map(stack => (
-								<Listbox.Option
-									key={stack.uid}
-									value={stack}
-								>
-									{({ active, selected } : { active: boolean, selected: boolean }) => (
-										<>
+				<Form>
+					<Field name="stack">
+						{({ field }) => {	
+							<Listbox {...field}>
+								<Listbox.Label>Choose Stack:</Listbox.Label>
+								<Listbox.Button>{field.value}</Listbox.Button>
+								<Listbox.Options>
+									{stacks.map(stack => (
+										<Listbox.Option
+											key={stack.uid}
+											value={stack}
+										>
+											<span>{stack.data.name}</span>
+										</Listbox.Option>
+									))}
+								</Listbox.Options>
+							</Listbox>
+						}}
+					</Field>
+					<ErrorMessage name="stack"/>
+					
+					<Field name="projectType">
+						{({ field }) => (
+							<Listbox {...field}>
+								<Listbox.Label>Choose Project:</Listbox.Label>
+								<Listbox.Button>{field.value}</Listbox.Button>
+								<Listbox.Options>
+									{stacks.map(stack => (
+										<Listbox.Option
+											key={stack.uid}
+											value={stack}
+										>
 											<Image src={stack.data.icon} height="100%" width="100%"/>
 											<div>
 												<div>{stack.data.name}</div>
 												<div>{stack.data.description}</div>
 											</div>
-										</>
-									)}
-								</Listbox.Option>
-							))}
-						</Listbox.Options>
-					</Listbox>
+										</Listbox.Option>
+									))}
+								</Listbox.Options>
+							</Listbox>
+						)}
+					</Field>
+					<ErrorMessage name="projectType"/>
 
 					Description:
-					{errors.description && touched.description && errors.description}
-					<input name="description" type="text" value={values.description}/>
+					<ErrorMessage name="description"/>
+					<Field name="description" type="text"/>
 
 					Url:
-					{errors.url && touched.url && touched.url}
-					<input name="url" type="text" value={values.url}/>
-				</>
+					<ErrorMessage name="url"/>
+					<Field name="url" type="text"/>
+
+					<button type="submit">Submit</button>
+				</Form>
 			)}
 		</Formik>
 	);
@@ -98,7 +105,7 @@ export const getServerSideProps = async function({ req }){
 		const { uid } = await authHandler.verifySessionCookie(sessionCookie);
 		const user = await authHandler.getUser(uid);
 
-		return { props: { user, stacks: await stacksProm } };
+		return { props: { user, stacks: (await stacksProm).map(e => ({...e})) } };
 	} catch(error){
 		console.error(error);
 		return { redirect: { destination: "/login", permamnent: false } };

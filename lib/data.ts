@@ -30,7 +30,9 @@ export class ProjectType extends Entity<ProjectTypeData> {};
 export interface UserData {
 	username: string,
 	bio: string,
-	upvotes: number
+	upvotes: number,
+	startedProjectTypes: Uid[],
+	completedProjectTypes: Uid[]
 };
 export class User extends Entity<UserData> {};
 
