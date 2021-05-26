@@ -1,6 +1,6 @@
 import admin, { credential } from "../firebase/admin";
-import { Database, User, UserData } from "../db";
-import { userSetter } from "core-js/fn/symbol";
+import { Database } from "../db";
+import { User, UserData } from "../data";
 
 export interface NewUser {
 	username: string,

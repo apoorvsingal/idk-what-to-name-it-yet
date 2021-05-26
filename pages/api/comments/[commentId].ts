@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Uid, Database, Comment, CommentData } from "../../../lib/db";
+import { Database } from "../../../lib/db";
+import { Uid, Comment, CommentData } from "../../../lib/data";
 import { error, firebase, auth } from "../../../lib/middlewares";
 import admin from "../../../lib/firebase/admin";
 

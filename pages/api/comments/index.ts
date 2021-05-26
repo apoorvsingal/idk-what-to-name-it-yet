@@ -1,4 +1,5 @@
-import { Uid, Database, Comment, CommentData, Project } from "../../../lib/db";
+import { Database } from "../../../lib/db";
+import { Uid, Comment, CommentData, Project } from "../../../lib/data";
 import { NextApiRequest, NextApiResponse } from "next";
 import { auth, firebase, error } from "../../../lib/middlewares";
 

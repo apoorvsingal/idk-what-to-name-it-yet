@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
-import firebase from "../lib/firebase/client";
 import { signupWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 
@@ -71,51 +70,48 @@ const SignupPage = function(){
 	};
 	
 	return (
-		<>
-			<Formik
-				initialValues={{ email: '', password: '', password2: '', displayName: '', bio: '', username: '' } as any}
-				validate={validateForm as any}
-				onSubmit={onSubmit}
-			>
-				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<div>
-						Email:
-						{errors.email && touched.email && errors.email}
-						<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
-						<br/>
-						
-						Username:
-						{errors.username && touched.username && errors.username}
-						<input name="username" value={(values as unknown as FormInput).username} onChange={handleChange}></input>
-						<br/>
+		<Formik
+			initialValues={{ email: '', password: '', password2: '', displayName: '', bio: '', username: '' } as any}
+			validate={validateForm as any}
+			onSubmit={onSubmit}
+		>
+			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+				<div>
+					Email:
+					{errors.email && touched.email && errors.email}
+					<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
+					<br/>
+					
+					Username:
+					{errors.username && touched.username && errors.username}
+					<input name="username" value={(values as unknown as FormInput).username} onChange={handleChange}></input>
+					<br/>
 
-						Display Name:
-						{errors.displayName && touched.displayName && errors.displayName}
-						<input name="displayName" value={(values as unknown as FormInput).displayName} onChange={handleChange}></input>
-						<br/>
+					Display Name:
+					{errors.displayName && touched.displayName && errors.displayName}
+					<input name="displayName" value={(values as unknown as FormInput).displayName} onChange={handleChange}></input>
+					<br/>
 
-						Bio:
-						{errors.bio && touched.bio && errors.bio}
-						<input name="bio" value={(values as unknown as FormInput).bio} onChange={handleChange}></input>
-						<br/>
+					Bio:
+					{errors.bio && touched.bio && errors.bio}
+					<input name="bio" value={(values as unknown as FormInput).bio} onChange={handleChange}></input>
+					<br/>
 
-						Password:
-						{errors.password && (touched.password || touched.password2) && errors.password}
-						<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
-						<input name="password2" type="password" value={(values as unknown as FormInput).password2} onChange={handleChange}></input>
-						<br/>
+					Password:
+					{errors.password && (touched.password || touched.password2) && errors.password}
+					<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
+					<input name="password2" type="password" value={(values as unknown as FormInput).password2} onChange={handleChange}></input>
+					<br/>
 
-						<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Sign Up</button>
-					</div>
-				)}
-			</Formik>
-		</>
+					<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Sign Up</button>
+				</div>
+			)}
+		</Formik>
 	);
 };
 
-const authHandler = new AuthHandler;
-
 export const getServerSideProps = async function({ req }){
+	const authHandler = new AuthHandler;
 	const sessionCookie: string = req.cookies.session;
 	
 	if(!sessionCookie){

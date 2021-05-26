@@ -1,27 +1,30 @@
-import { at } from "core-js/core/string";
 import React from "react";
 import { AuthHandler } from "../lib/auth/server";
+import Image from "next/image";
 
 const ProfilePage = function({ user, error }){
 	return (
-		<div>
-			{JSON.stringify({ user, error }, null, 4)}
-		</div>
+		<span>
+			<Image 
+				src={user.photoURL || "https://media.discordapp.net/attachments/815202642006507590/847062656077791242/unknown.png"}
+				height="100%"
+				width="100%"
+			/>
+			<span>
+				<div>{user.displayName}</div>
+				<div>@{user.username}</div>
+				<div>{user.bio}</div>
+			</span>
+		</span>
 	)
 };
 
-const authHandler = new AuthHandler;
-
 export const getServerSideProps = async function({ req }){
+	const authHandler = new AuthHandler;
 	const sessionCookie: string = req.cookies.session;
 	
 	if(!sessionCookie){
-		return {
-			redirect: {
-				destination: "/login",
-				permamnent: false
-			}
-		};
+		return { redirect: { destination: "/login", permamnent: false } };
 	}
 	try {
 		await authHandler.init();
@@ -32,7 +35,7 @@ export const getServerSideProps = async function({ req }){
 		return { props: { user } };
 	} catch(error){
 		console.error(error);
-		return { props: { error: error.message }};
+		return { redirect: { destination: "/login", permamnent: false } };
 	}
 };
 

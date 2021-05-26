@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
-import firebase from "../lib/firebase/client";
 import { loginWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 
@@ -46,35 +45,32 @@ const LoginPage = function(){
 	};
 
 	return (
-		<>
-			<Formik
-				initialValues={{ email: '', password: '' } as any}
-				validate={validateForm as any}
-				onSubmit={onSubmit}
-			>
-				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<div>
-						Email:
-						{errors.email && touched.email && errors.email}
-						<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
-						<br/>
+		<Formik
+			initialValues={{ email: '', password: '' } as any}
+			validate={validateForm as any}
+			onSubmit={onSubmit}
+		>
+			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+				<div>
+					Email:
+					{errors.email && touched.email && errors.email}
+					<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
+					<br/>
 
-						Password:
-						{errors.password && touched.password && errors.password}
-						<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
-						<br/>
+					Password:
+					{errors.password && touched.password && errors.password}
+					<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
+					<br/>
 
-						<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Login</button>
-					</div>
-				)}
-			</Formik>
-		</>
+					<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Login</button>
+				</div>
+			)}
+		</Formik>
 	);
 };
 
-const authHandler = new AuthHandler;
-
 export const getServerSideProps = async function({ req }){
+	const authHandler = new AuthHandler;
 	const sessionCookie: string = req.cookies.session;
 	
 	if(!sessionCookie){

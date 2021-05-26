@@ -1,4 +1,7 @@
 module.exports = {
+	images: {
+		domains: ["media.discordapp.net"]
+	},
 	async rewrites(){
 		return [
 			{

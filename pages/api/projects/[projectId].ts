@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Uid, Database, Project, ProjectData } from "../../../lib/db";
+import { Database } from "../../../lib/db";
+import { Uid, Project, ProjectData } from "../../../lib/data";
 import { auth, error, firebase } from "../../../lib/middlewares";
 
 const db = new Database;

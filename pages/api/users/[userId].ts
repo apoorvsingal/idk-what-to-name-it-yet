@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { AuthHandler } from "../../../lib/auth/server";
-import { Database, TechStack, Uid } from "../../../lib/db";
+import { Uid } from "../../../lib/data";
 import { error, firebase, auth } from "../../../lib/middlewares";
 
 const authHandler: AuthHandler = new AuthHandler;
@@ -18,7 +18,7 @@ export default error(firebase(auth(
 	async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 		switch(req.method){
 		case "GET":
-			return await getUser(req, res, context);
+			// return await getUser(req, res, context);
 		case "POST":
 			// return await addUser(req, res, context);
 		}

@@ -1,5 +1,5 @@
 import firebase from "../firebase/client";
-import fetch from "isomorphic-unfetch";
+import { login, signup } from "../api";
 
 export const loginWithEmail = async (email: string, password: string) => {
 	await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -7,13 +7,7 @@ export const loginWithEmail = async (email: string, password: string) => {
 
 	const idToken = await firebase.auth().currentUser.getIdToken();
 
-	return await fetch("/api/login", { 
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({ idToken })
-	}).then(res => res.json());
+	return await login({ idToken });
 };
 
 export const signupWithEmail = async (email: string, password: string, username: string, displayName: string, bio: string) => {
@@ -23,20 +17,10 @@ export const signupWithEmail = async (email: string, password: string, username:
 	
 	const idToken = await firebase.auth().currentUser.getIdToken();
 
-	const res = await fetch("/api/signup", { 
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({ 
-			idToken, 
-			user: {
-				username,
-				bio
-			}
-		})
-	}).then(res => res.json());
-
+	const res = await signup({ 
+		idToken, 
+		user: { username, bio }
+	});
 	await firebase.auth().currentUser.sendEmailVerification();
 	return res;
 };
