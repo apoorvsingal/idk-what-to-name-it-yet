@@ -2,7 +2,9 @@ import React from "react";
 
 const Index = () => {
 	return (
-		<div>Hello World!</div>
+		<main className="bg-darkBlue text-white text-center">
+			<div>Hello World!</div>
+		</main>
 	)
 };
 
