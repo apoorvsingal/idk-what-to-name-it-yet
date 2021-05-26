@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { TechStack, User } from "../../lib/data";
 import { Database } from "../../lib/db";
 import { AuthHandler } from "../../lib/auth/server";
@@ -9,7 +9,7 @@ const validateForm = () => {
 };
 
 const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStack[] }){
-	const onSubmit = () => {
+	const onSubmit = (values) => {
 
 	};
 
@@ -19,22 +19,25 @@ const NewProjectPage = function({ user, stacks }: { user: User, stacks: TechStac
 			validate={validateForm as any}
 			onSubmit={onSubmit}
 		>
-			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-				<div>
+			{({ values, handleChange, handleSubmit, isSubmitting }) => (
+				<Form>
 					Icon:
-					{errors.icon && touched.icon && touched.icon}
-					<input name="icon" type="file" value={values.icon} onChange={handleChange}/>
-					
+					<ErrorMessage name="icon"/>
+					<Field name="icon" type="image" value={values.icon} onChange={handleChange}/>
+					<br/>
+
 					Name:
-					{errors.name && touched.name && errors.name}
-					<input name="name" type="text" value={values.name} onChange={handleChange}/>
+					<ErrorMessage name="icon"/>
+					<Field name="name" type="text" value={values.name} onChange={handleChange}/>
+					<br/>
 					
 					Description:
-					{errors.description && touched.description && errors.description}
-					<input name="description" type="text" value={values.description} onChange={handleChange}/>
-
+					<ErrorMessage name="icon"/>
+					<Field name="description" type="text" value={values.description} onChange={handleChange}/>
+					<br/>
+					
 					<button type="submit" disabled={isSubmitting}>Submit</button>
-				</div>
+				</Form>
 			)}
 		</Formik>
 	);

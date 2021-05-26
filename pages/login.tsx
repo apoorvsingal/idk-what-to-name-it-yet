@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { loginWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
@@ -50,20 +50,20 @@ const LoginPage = function(){
 			validate={validateForm as any}
 			onSubmit={onSubmit}
 		>
-			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-				<div>
+			{({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+				<Form>
 					Email:
-					{errors.email && touched.email && errors.email}
-					<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
+					<ErrorMessage name="email"/>
+					<Field name="email" type="email"/>
 					<br/>
 
 					Password:
-					{errors.password && touched.password && errors.password}
-					<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
+					<ErrorMessage name="password"/>
+					<Field name="password" type="password"/>
 					<br/>
 
-					<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Login</button>
-				</div>
+					<button type="submit" disabled={isSubmitting}>Login</button>
+				</Form>
 			)}
 		</Formik>
 	);

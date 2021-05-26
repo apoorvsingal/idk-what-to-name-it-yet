@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { signupWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
@@ -76,35 +76,35 @@ const SignupPage = function(){
 			onSubmit={onSubmit}
 		>
 			{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-				<div>
+				<Form>
 					Email:
-					{errors.email && touched.email && errors.email}
-					<input name="email" value={(values as unknown as FormInput).email} onChange={handleChange}></input>
+					<ErrorMessage name="email"/>
+					<Field name="email" type="email"/>
 					<br/>
 					
 					Username:
-					{errors.username && touched.username && errors.username}
-					<input name="username" value={(values as unknown as FormInput).username} onChange={handleChange}></input>
+					<ErrorMessage name="username"/>
+					<Field name="username" type="text"/>
 					<br/>
 
 					Display Name:
-					{errors.displayName && touched.displayName && errors.displayName}
-					<input name="displayName" value={(values as unknown as FormInput).displayName} onChange={handleChange}></input>
+					<ErrorMessage name="displayName"/>
+					<Field name="displayName" type="text"/>
 					<br/>
 
 					Bio:
-					{errors.bio && touched.bio && errors.bio}
-					<input name="bio" value={(values as unknown as FormInput).bio} onChange={handleChange}></input>
+					<ErrorMessage name="bio"/>
+					<Field name="bio" type="text"/>
 					<br/>
 
 					Password:
-					{errors.password && (touched.password || touched.password2) && errors.password}
-					<input name="password" type="password" value={(values as unknown as FormInput).password} onChange={handleChange}></input>
-					<input name="password2" type="password" value={(values as unknown as FormInput).password2} onChange={handleChange}></input>
+					<ErrorMessage name="password"/>
+					<Field name="password" type="password"/>
+					<Field name="password2" type="password"/>
 					<br/>
 
-					<button type="submit" disabled={isSubmitting} onClick={handleSubmit as any}>Sign Up</button>
-				</div>
+					<button type="submit" disabled={isSubmitting}>Sign Up</button>
+				</Form>
 			)}
 		</Formik>
 	);
