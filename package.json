@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apoorvsingal/idk-what-to-name-it-yet.git"
+    "url": "git+https://github.com/apoorvsingal/kaow.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/apoorvsingal/idk-what-to-name-it-yet/issues"
+    "url": "https://github.com/apoorvsingal/kaow/issues"
   },
-  "homepage": "https://github.com/apoorvsingal/idk-what-to-name-it-yet#readme",
+  "homepage": "https://github.com/apoorvsingal/kaow#readme",
   "dependencies": {
     "@headlessui/react": "^1.2.0",
     "@types/cookie": "^0.4.0",

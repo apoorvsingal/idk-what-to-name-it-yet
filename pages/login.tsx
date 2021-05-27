@@ -56,36 +56,44 @@ const LoginPage = function () {
 				<title>Login - Kaow</title>
 			</Head>
 			<main className="bg-darkBlue text-lg text-white w-screen h-screen flex justify-center items-center">
-			<Formik
-				initialValues={{ email: '', password: '' } as any}
-				validate={validateForm as any}
-				onSubmit={onSubmit}
-			>
-				{({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
-					<Form className="bg-white p-8 text-darkBlue w-max flex flex-col gap-3 rounded">
+				<div className="bg-white p-8 text-darkBlue w-max flex flex-col gap-3 rounded">
+					<h1 className="text-left pb-4 text-3xl sm:text-4xl">Login</h1>
 
-						<h1 className="text-left pb-4 text-3xl sm:text-4xl">Login</h1>
-						
-							<h2 className="text-sm font-medium -mb-2 py-1">Email:</h2>
-							<ErrorMessage name="email">
-								{msg => <div className="text-xs text-red">{msg}</div>}
-							</ErrorMessage>
-							<Field name="email" type="email" className="p-1 bg-lightGray w-full rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out text-lg" />
+					<Formik
+						initialValues={{ email: '', password: '' } as any}
+						validate={validateForm as any}
+						onSubmit={onSubmit}
+					>
+						{({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+							<Form className="py-2">
+								<h2 className="text-sm font-medium -mb-2 py-1">Email:</h2>
+								<ErrorMessage name="email">
+									{msg => <div className="text-xs text-red">{msg}</div>}
+								</ErrorMessage>
+								<Field name="email" type="email" className="p-1 bg-lightGray w-full rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out text-lg" />
 
-							<h2 className="text-sm font-medium -mb-2 py-1">Password:</h2>
-							<ErrorMessage name="password">
-								{msg => <div className="text-xs text-red">{msg}</div>}
-							</ErrorMessage>
-							<Field name="password" type="password" className="p-1 bg-lightGray w-full rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
+								<h2 className="text-sm font-medium -mb-2 py-1">Password:</h2>
+								<ErrorMessage name="password">
+									{msg => <div className="text-xs text-red">{msg}</div>}
+								</ErrorMessage>
+								<Field name="password" type="password" className="p-1 bg-lightGray w-full rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
+								<button className="bg-red text-white py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Login</button>
 
-						<button className="bg-red text-white py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Login</button>
+							</Form>
+						)}
+					</Formik>
+					<p className="text-xs font-extralight md:text-sm">
+						Don't have an account?
 
-						<p className="text-xs font-extralight md:text-sm">Don't have an account? <Link href="/signup"><a className="font-semibold underline text-lightRed hover:text-red transition duration-300 ease-in-out">Sign up</a></Link></p>
-					</Form>
-				)}
-			</Formik>
-		</main>
+						<Link href="/signup">
+							<a className="font-semibold underline text-lightRed hover:text-red transition duration-300 ease-in-out">
+								Sign up
+							</a>
+						</Link>
+					</p>
+				</div>
+			</main>
 		</>
 	);
 };
