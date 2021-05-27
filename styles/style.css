@@ -1,9 +1,12 @@
 :root {
 	--darkBlue: #2A3950;
 	--purple: #504099;
-	--red: #F54768;
+	--darkPurple: #2f255c;
+	--red: #FF4569;
+	--lightRed: #ff758f;
 	--orange: #FF9678;
 	--white: #FFFFFF;
+  --lightGray: #F3F4F6;
 }
 
 @tailwind base;
@@ -11,3 +14,6 @@
 @tailwind components;
 
 @tailwind utilities
+
+/* where are ya? */
+/* /signup */
