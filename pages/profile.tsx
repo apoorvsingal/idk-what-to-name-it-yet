@@ -9,22 +9,22 @@ type ProfilePageProps = {
 
 const ProfilePage = function ({ user }: ProfilePageProps){
 	return (
-		<main className="bg-darkBlue text-white w-screen h-screen">
-			<div className="w-full p-6 bg-white flex flex-row items-center mt-0 text-darkBlue">
-				<span>
-					<Image
-						src={user.photoURL || "https://media.discordapp.net/attachments/815202642006507590/847062656077791242/unknown.png"}
-						height="100%"
-						width="100%"
-					/>
-					<span className="text-lightGray p-2">
-						<div>{user.displayName}</div>
-						<div>@{user.username}</div>
-						<div>{user.bio}</div>
+			<main className="bg-darkBlue text-white w-screen h-screen">
+				<div className="w-full p-6 bg-white flex flex-row items-center mt-0 text-darkBlue">
+					<span>
+						<Image
+							src={user.photoURL || "https://media.discordapp.net/attachments/815202642006507590/847062656077791242/unknown.png"}
+							height="100%"
+							width="100%"
+						/>
+						<span className="text-lightGray p-2">
+							<div>{user.displayName}</div>
+							<div>@{user.username}</div>
+							<div>{user.bio}</div>
+						</span>
 					</span>
-				</span>
-			</div>
-		</main>
+				</div>
+			</main>
 	)
 };
 
