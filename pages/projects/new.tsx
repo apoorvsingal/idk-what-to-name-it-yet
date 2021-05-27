@@ -25,7 +25,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 				initialValues={{
 					description: '',
 					url: '',
-					stack: null as TechStack | null,
+					stack: stacks[0] as TechStack | null,
 					projectType: null as ProjectType | null
 				} as any}
 				validate={validateForm as any}
@@ -37,7 +37,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
 									<Listbox.Label>Choose Stack</Listbox.Label>
-									<Listbox.Button>{field.value}</Listbox.Button>
+									<Listbox.Button>{field.value && field.value.data.name}</Listbox.Button>
 									<Listbox.Options>
 										{stacks.map(stack => (
 											<Listbox.Option
@@ -57,7 +57,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
 									<Listbox.Label>Choose Project</Listbox.Label>
-									<Listbox.Button>{field.value}</Listbox.Button>
+									<Listbox.Button>{field.value && field.value.data.name}</Listbox.Button>
 									<Listbox.Options>
 										{stacks.map(stack => (
 											<Listbox.Option

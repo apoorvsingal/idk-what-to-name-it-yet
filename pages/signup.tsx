@@ -90,7 +90,6 @@ const SignupPage = function () {
 								<Field name="password" type="password" className="p-1 bg-lightGray block w-full rounded-sm border border-lightGray outline-none focus:border-lightRed transition duration-300 ease-out" />
 
 								<button className="bg-red text-white w-max py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Sign Up</button>
-
 							</Form>
 						)}
 					</Formik>
