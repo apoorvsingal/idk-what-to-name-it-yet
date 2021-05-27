@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { signupWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
+import { Transition } from "@headlessui/react";
 
 interface ValidationErrors {
 	email?: string,
@@ -84,25 +85,30 @@ const SignupPage = function () {
 
 						<div className="p-0 sm:p-12 pb-4">
 							<h2 className="text-sm font-medium -mb-2 py-2">Email:</h2>
-							<ErrorMessage name="email" className="text-xs text-red" />
+							<ErrorMessage name="email">
+								{msg => <div className="text-xs text-red">{msg}</div>}
+							</ErrorMessage>
 							<Field name="email" type="email" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Username:</h2>
-							<ErrorMessage name="username" className="text-xs text-red" />
+							<ErrorMessage name="username">
+								{msg => <div className="text-xs text-red">{msg}</div>}
+							</ErrorMessage>
 							<Field name="username" type="text" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Display Name:</h2>
-							<ErrorMessage name="displayName" className="text-xs text-red" />
+							<ErrorMessage name="displayName">
+								{msg => <div className="text-xs text-red">{msg}</div>}
+							</ErrorMessage>
 							<Field name="displayName" type="text" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
-							<h2 className="text-sm font-medium -mb-2 py-2">Bio:</h2>
-							<ErrorMessage name="bio" className="text-xs text-red" />
-							<Field name="bio" type="text" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
-
 							<h2 className="text-sm font-medium -mb-2 py-2">Password:</h2>
-							<ErrorMessage name="password" className="text-xs text-red" />
-							<Field name="password" type="password" className="p-1 bg-lightGray block w-full sm:w-4/5 mb-4 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
+							<ErrorMessage name="password">
+								{msg => <div className="text-xs text-red">{msg}</div>}
+							</ErrorMessage>
+							<Field name="password" type="password" className="p-1 bg-lightGray block w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
+							<h2 className="text-sm font-medium -mb-2 py-2">Confirm Password:</h2>
 							<Field name="password2" type="password" className="p-1 bg-lightGray block w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 						</div>
 
@@ -121,7 +127,7 @@ export const getServerSideProps = async function ({ req }) {
 	const sessionCookie: string = req.cookies.session;
 
 	if (!sessionCookie) {
-		return {};
+		return { props: {} };
 	}
 	try {
 		await authHandler.init();

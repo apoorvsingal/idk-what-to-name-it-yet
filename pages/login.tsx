@@ -59,11 +59,15 @@ const LoginPage = function () {
 
 						<div className="p-0 sm:p-12 sm:pb-4">
 							<h2 className="text-sm font-medium -mb-2 py-2">Email:</h2>
-							<ErrorMessage name="email" />
+							<ErrorMessage name="email">
+								{msg => <div className="text-xs text-red">{msg}</div>}
+							</ErrorMessage>
 							<Field name="email" type="email" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Password:</h2>
-							<ErrorMessage name="password" />
+							<ErrorMessage name="password">
+								{msg => <div className="text-xs text-red">{msg}</div>}
+							</ErrorMessage>
 							<Field name="password" type="password" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 						</div>
 
@@ -82,7 +86,7 @@ export const getServerSideProps = async function ({ req }) {
 	const sessionCookie: string = req.cookies.session;
 
 	if (!sessionCookie) {
-		return {};
+		return { props: {} };
 	}
 	try {
 		await authHandler.init();
