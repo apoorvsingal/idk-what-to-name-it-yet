@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { loginWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
+import { GetServerSidePropsContext } from "next";
 
 interface ValidationErrors {
 	email?: string,
@@ -79,7 +80,7 @@ const LoginPage = function () {
 	);
 };
 
-export const getServerSideProps = async function ({ req }) {
+export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
 	const authHandler = new AuthHandler;
 	const sessionCookie: string = req.cookies.session;
 

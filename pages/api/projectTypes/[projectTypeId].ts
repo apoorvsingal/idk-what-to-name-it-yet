@@ -17,7 +17,7 @@ export default error(firebase(auth(
 	async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 		switch(req.method){
 		case "GET":
-			return await getProjectType(req, res, context)
+			return await getProjectType(req, res, context);
 		case "PUT":
 			// return await addProjectType(req, res, context);
 		}

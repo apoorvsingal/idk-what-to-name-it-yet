@@ -1,8 +1,13 @@
-import React from "react";
 import { AuthHandler } from "../lib/auth/server";
 import Image from "next/image";
+import { GetServerSidePropsContext } from "next";
+import { User, UserInfo } from "../lib/data";
 
-const ProfilePage = function ({ user, error }) {
+type ProfilePageProps = {
+	user: UserInfo
+}
+
+const ProfilePage = function ({ user }: ProfilePageProps){
 	return (
 		<main className="bg-darkBlue text-white w-screen h-screen">
 			<div className="w-full p-6 bg-white flex flex-row items-center mt-0 text-darkBlue">
@@ -23,7 +28,7 @@ const ProfilePage = function ({ user, error }) {
 	)
 };
 
-export const getServerSideProps = async function ({ req }) {
+export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
 	const authHandler = new AuthHandler;
 	const sessionCookie: string = req.cookies.session;
 

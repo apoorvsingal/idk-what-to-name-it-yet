@@ -12,7 +12,7 @@ const getComments = async (req: NextApiRequest, res: NextApiResponse, context?: 
 	const offset: number = req.query.offset ? Number(req.query.offset) : 0;
 	const limit: number = req.query.limit ? Number(req.query.limit) : 10;
 
-	const query = [];
+	const query: [string, string, any][] = [];
 
 	if(projectId){
 		query.push(["projectId", "==", projectId]);
@@ -23,10 +23,10 @@ const getComments = async (req: NextApiRequest, res: NextApiResponse, context?: 
 	res.send(await db.comments().find(query, { offset, limit }));
 };
 
-const addComment = async (req, res, context?: any) => {
+const addComment = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	const commentData: CommentData = req.body;
 
-	await db.comments().add(new Comment(null, commentData));
+	await db.comments().add(new Comment("", commentData));
 	res.send({ ok: true });
 };
 

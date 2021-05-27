@@ -27,6 +27,19 @@ export interface ProjectTypeData {
 };
 export class ProjectType extends Entity<ProjectTypeData> {};
 
+export interface NewUser {
+	username: string,
+	bio: string
+};
+export interface UserInfo {
+	uid: Uid,
+	displayName: string | null,
+	email: string | null,
+	photoURL: string | null,
+	username: string,
+	upvotes: number,
+	bio: string
+};
 export interface UserData {
 	username: string,
 	bio: string,

@@ -1,11 +1,11 @@
 import { serialize } from "cookie";
-import { NextApiRequest, NextApiResponse } from "next";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 
 const LogoutPage = function(){
 	return <>null</>;
 }
 
-export const getServerSideProps = ({ req, res }: { req: NextApiRequest, res: NextApiResponse }) => {
+export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
 	res.setHeader("Set-Cookie", serialize("session", "", { path: "/" }));
 	return { redirect: { destination: "/login", permanent: false } };
 };

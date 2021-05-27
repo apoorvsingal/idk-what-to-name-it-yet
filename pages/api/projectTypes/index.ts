@@ -11,7 +11,7 @@ const getProjectTypes = async (req: NextApiRequest, res: NextApiResponse, contex
 	const offset: number = req.query.offset ? Number(req.query.offset) : 0;
 	const limit: number = req.query.limit ? Number(req.query.limit) : 10;
 
-	const query = [];
+	const query: [string, string, any][] = [];
 
 	if(stackId){
 		query.push(["stackId", "==", stackId]);

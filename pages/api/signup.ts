@@ -1,9 +1,12 @@
-import { AuthHandler, NewUser } from "../../lib/auth/server";
+import { AuthHandler } from "../../lib/auth/server";
 import { serialize } from "cookie";
+import { NextApiRequest, NextApiResponse } from "next";
+import { error, firebase } from "../../lib/middlewares";
+import { NewUser } from "../../lib/data";
 
 const authHandler = new AuthHandler;
 
-export default async (req, res) => {
+export default error(firebase(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { idToken, user }: { idToken: string, user: NewUser } = req.body;
 
 	if(!user.username || typeof user.username != "string" || user.username.length < 3 || user.username.length > 24){
@@ -13,7 +16,6 @@ export default async (req, res) => {
 		res.status(400).send({ error: "Invalid bio" });
 	}
 	try {
-		await authHandler.init();
 		await authHandler.createUser(idToken, user);
 		const sessionCookie = await authHandler.getSessionCookie(idToken);
 		
@@ -23,4 +25,4 @@ export default async (req, res) => {
 		console.error(error);
 		res.send({ error: error.message });
 	}
-};
+}));

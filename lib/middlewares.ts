@@ -27,7 +27,7 @@ export const firebase = (callback: MiddlewareCallback) => {
 	};
 };
 
-export const auth = (callback: MiddlewareCallback, options?: { validate?: MiddlewareCallback }) => {
+export const auth = (callback: MiddlewareCallback, options: { validate?: MiddlewareCallback } = {}) => {
 	return async (req: NextApiRequest, res: NextApiResponse, context: any = {}) => {
 		if(req.method == "GET"){
 			await callback(req, res, context);

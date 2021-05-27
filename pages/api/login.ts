@@ -1,9 +1,11 @@
 import { AuthHandler } from "../../lib/auth/server";
 import { serialize } from "cookie";
+import { NextApiRequest, NextApiResponse } from "next";
+import { error, firebase } from "../../lib/middlewares";
 
 const auth = new AuthHandler;
 
-export default async (req, res) => {
+export default error(firebase(async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		await auth.init();
 
@@ -16,4 +18,4 @@ export default async (req, res) => {
 		console.error(err);
 		res.send({ error: err.message });
 	}
-};
+}));

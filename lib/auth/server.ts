@@ -1,11 +1,6 @@
 import admin, { credential } from "../firebase/admin";
 import { Database } from "../db";
-import { User, UserData } from "../data";
-
-export interface NewUser {
-	username: string,
-	bio?: string
-};
+import { User, NewUser, UserInfo } from "../data";
 
 export class AuthHandler {
 	private _db: Database;
@@ -34,14 +29,17 @@ export class AuthHandler {
 		await this._db.users().save(user);
 		return user;
 	};
-	async getUser(uid: string): Promise<object> {
-		const firebaseUser: admin.auth.UserRecord = await admin.auth().getUser(uid);
-		const { data } = await this._db.users().get(uid);
+	async getUser(uid: string): Promise<UserInfo> {
+		const prom1 = admin.auth().getUser(uid);
+		const prom2 = this._db.users().get(uid);
+
+		const firebaseUser: admin.auth.UserRecord = await prom1;
+		const { data }: User = await prom2;
 
 		return {
 			uid: firebaseUser.uid,
 			displayName: firebaseUser.displayName || null,
-			email: firebaseUser.email,
+			email: firebaseUser.email || null,
 			photoURL: firebaseUser.photoURL || null,
 			username: data.username,
 			upvotes: data.upvotes,
