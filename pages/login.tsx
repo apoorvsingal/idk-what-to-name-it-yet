@@ -53,25 +53,23 @@ const LoginPage = function () {
 				onSubmit={onSubmit}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
-					<Form className="bg-white p-8 text-darkBlue w-full max-w-xl flex flex-col gap-3 rounded">
+					<Form className="bg-white p-8 text-darkBlue w-full h-screen sm:max-w-xl flex flex-col gap-3 rounded">
 
-					<h1 className="text-left p-6 text-4xl">Login</h1>
+						<h1 className="text-left p-2 sm:p-6 text-3xl sm:text-4xl">Login</h1>
 
-					<div className="p-12 pb-4">
-						Email:
-					<ErrorMessage name="email" />
-						<Field name="email" type="email" />
-						<br />
+						<div className="p-0 sm:p-12 sm:pb-4">
+							<h2 className="text-sm font-medium -mb-2 py-2">Email:</h2>
+							<ErrorMessage name="email" />
+							<Field name="email" type="email" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
-						Password:
-					<ErrorMessage name="password" />
-						<Field name="password" type="password" />
-						<br />
-					</div>
+							<h2 className="text-sm font-medium -mb-2 py-2">Password:</h2>
+							<ErrorMessage name="password" />
+							<Field name="password" type="password" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
+						</div>
 
-						<button className="bg-red text-white m-auto py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out" type="submit" disabled={isSubmitting}>Login</button>
+						<button className="bg-red text-white m-auto py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Login</button>
 
-						<p className="text-xs font-extralight text-center md:text-sm">Don't have an account? <Link href="/Sign Up"><a className="font-semibold underline text-lightRed hover:text-red transition duration-300 ease-in-out">Sign up</a></Link></p>
+						<p className="text-xs font-extralight text-center md:text-sm">Don't have an account? <Link href="/signup"><a className="font-semibold underline text-lightRed hover:text-red transition duration-300 ease-in-out">Sign up</a></Link></p>
 					</Form>
 				)}
 			</Formik>

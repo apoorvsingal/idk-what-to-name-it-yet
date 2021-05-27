@@ -78,34 +78,35 @@ const SignupPage = function () {
 				onSubmit={onSubmit}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<Form className="bg-white p-8 text-darkBlue w-full max-w-xl flex flex-col gap-3 rounded">
+					<Form className="bg-white p-4 sm:p-8 text-darkBlue w-screen sm:max-w-lg md:max-w-xl h-screen sm:h-auto flex flex-col gap-3 rounded">
 
-						<h1 className="text-left p-6 text-4xl">Sign Up</h1>
+						<h1 className="text-left p-2 sm:p-6 text-3xl sm:text-4xl">Sign Up</h1>
 
-						<div className="p-12 pb-4">
+						<div className="p-0 sm:p-12 pb-4">
 							<h2 className="text-sm font-medium -mb-2 py-2">Email:</h2>
 							<ErrorMessage name="email" className="text-xs text-red" />
-							<Field name="email" type="email" className="bg-lightGray w-4/5" />
+							<Field name="email" type="email" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Username:</h2>
 							<ErrorMessage name="username" className="text-xs text-red" />
-							<Field name="username" type="text" className="bg-lightGray w-4/5" />
+							<Field name="username" type="text" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Display Name:</h2>
 							<ErrorMessage name="displayName" className="text-xs text-red" />
-							<Field name="displayName" type="text" className="bg-lightGray w-4/5" />
+							<Field name="displayName" type="text" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Bio:</h2>
 							<ErrorMessage name="bio" className="text-xs text-red" />
-							<Field name="bio" type="text" className="bg-lightGray w-4/5" />
+							<Field name="bio" type="text" className="p-1 bg-lightGray w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 
 							<h2 className="text-sm font-medium -mb-2 py-2">Password:</h2>
 							<ErrorMessage name="password" className="text-xs text-red" />
-							<Field name="password" type="password" className="bg-lightGray block w-4/5 mb-2" />
-							<Field name="password2" type="password" className="bg-lightGray block w-4/5" />
+							<Field name="password" type="password" className="p-1 bg-lightGray block w-full sm:w-4/5 mb-4 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
+
+							<Field name="password2" type="password" className="p-1 bg-lightGray block w-full sm:w-4/5 rounded-sm border border-lightGray outline-none focus:border-orange transition duration-300 ease-out" />
 						</div>
 
-						<button className="bg-red text-white m-auto py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out" type="submit" disabled={isSubmitting}>Sign Up</button>
+						<button className="bg-red text-white m-auto py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Sign Up</button>
 
 						<p className="text-xs font-extralight text-center md:text-sm">Already have an account? <Link href="/login"><a className="font-semibold underline text-lightRed hover:text-red transition duration-300 ease-in-out">Sign in</a></Link></p>
 					</Form>

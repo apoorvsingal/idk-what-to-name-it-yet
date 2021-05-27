@@ -11,7 +11,12 @@ module.exports = {
 			orange: 'var(--orange)',
 			white: 'var(--white)',
       lightGray: 'var(--lightGray)',
-		}
+		},
+		screens: {
+			'sm': '480px',
+			'md': '620px',
+			'lg': '923',
+		},
 	},
 	variants: {
 		extend: {},

@@ -9,7 +9,9 @@ const Index = () => {
 				<title>Home - Kaow</title>
 			</Head>
 			<main className="bg-darkBlue text-white w-screen h-screen">
-
+				<Link href="/signup"><a>signup</a></Link>
+				<Link href="/profile"><a>profile</a></Link>
+				<Link href="/stacks/new"><a>idk</a></Link>
 			</main>
 		</>
 	)
