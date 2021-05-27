@@ -58,13 +58,12 @@ const SignupPage = function () {
 				<h1 className="text-left p-2 sm:p-6 text-3xl sm:text-4xl">Sign Up</h1>
 	
 				<Formik
-					initialValues={{ email: '', password: '', password2: '', displayName: '', bio: '', username: '' } as any}
+					initialValues={{ email: '', password: '', username: '' } as any}
 					validate={validateForm as any}
 					onSubmit={onSubmit}
 				>
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 						<Form className="p-0 sm:p-12 pb-4">
-
 							<h2 className="text-sm font-medium -mb-2 py-2">Email:</h2>
 							<ErrorMessage name="email">
 								{msg => <div className="text-xs text-red">{msg}</div>}
