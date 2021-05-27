@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { Listbox } from '@headlessui/react'
+import { GetServerSidePropsContext } from "next";
+import { ErrorMessage, Field, FieldProps, Form, Formik } from "formik";
+import { Listbox } from "@headlessui/react";
+import Image from "next/image";
+
 import { ProjectType, TechStack, User } from "../../lib/data";
 import { Database } from "../../lib/db";
 import { AuthHandler } from "../../lib/auth/server";
-import Image from "next/image";
 
 const validateForm = () => {
 	return {};
@@ -24,31 +25,16 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 				initialValues={{
 					description: '',
 					url: '',
-					stack: null as TechStack,
-					projectType: null as ProjectType
+					stack: null as TechStack | null,
+					projectType: null as ProjectType | null
 				} as any}
 				validate={validateForm as any}
 				onSubmit={onSubmit}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 					<Form>
-						<Listbox value={values.stack} onChange={handleChange}>
-							<Listbox.Button>{values.stack}</Listbox.Button>
-							<Listbox.Label>Choose Stack</Listbox.Label>
-							<Listbox.Options>
-								{stacks.map(stack => (
-									<Listbox.Option
-										key={stack.uid}
-										value={stack}
-									>
-										{stack.data.name}
-									</Listbox.Option>
-								))}
-							</Listbox.Options>
-						</Listbox>
-
 						<Field name="stack">
-							{({ field }) => (
+							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
 									<Listbox.Label>Choose Stack</Listbox.Label>
 									<Listbox.Button>{field.value}</Listbox.Button>
@@ -68,7 +54,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 						<ErrorMessage name="stack" />
 
 						<Field name="projectType">
-							{({ field }) => (
+							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
 									<Listbox.Label>Choose Project</Listbox.Label>
 									<Listbox.Button>{field.value}</Listbox.Button>
@@ -110,7 +96,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 const db = new Database;
 const authHandler = new AuthHandler;
 
-export const getServerSideProps = async function ({ req }) {
+export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
 	const sessionCookie: string = req.cookies.session;
 
 	if (!sessionCookie) {

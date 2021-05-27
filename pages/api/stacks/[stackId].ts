@@ -10,7 +10,7 @@ const getStack = async (req: NextApiRequest, res: NextApiResponse, context?: any
 	res.send(await db.techStacks().get(stackId));
 };
 
-const addStack = async (req, NextApiRequest, res: NextApiResponse, context?: any) => {
+const addStack = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	
 };
 

@@ -11,7 +11,7 @@ const getStacks = async (req: NextApiRequest, res: NextApiResponse, context?: an
 	res.send(await db.techStacks().find([], { offset, limit }));
 };
 
-const addStack = async (req, NextApiRequest, res: NextApiResponse, context?: any) => {
+const addStack = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	
 };
 

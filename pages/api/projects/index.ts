@@ -12,7 +12,7 @@ const getProjects = async(req: NextApiRequest, res: NextApiResponse, context?: a
 	const offset: number = req.query.offset ? Number(req.query.offset) : 0;
 	const limit: number = req.query.limit ? Number(req.query.limit) : 10;
 
-	const query = [];
+	const query: [string, string, any][] = [];
 
 	if(projectTypeId){
 		query.push(["projectTypeId", "==", projectTypeId]);
@@ -26,7 +26,7 @@ const getProjects = async(req: NextApiRequest, res: NextApiResponse, context?: a
 const addProject = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	const projectData: ProjectData = req.body;
 
-	await db.projects().add(new Project(null, projectData));
+	await db.projects().add(new Project("", projectData));
 	res.send({ ok: true });
 };
 

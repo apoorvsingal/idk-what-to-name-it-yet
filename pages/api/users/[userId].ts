@@ -10,7 +10,7 @@ const getUser = async (req: NextApiRequest, res: NextApiResponse, context?: any)
 	res.send(await authHandler.getUser(userId));
 };
 
-const addUser = async (req, NextApiRequest, res: NextApiResponse, context?: any) => {
+const addUser = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	
 };
 

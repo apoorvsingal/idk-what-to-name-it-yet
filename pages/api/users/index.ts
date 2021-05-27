@@ -11,7 +11,7 @@ const getUsers = async (req: NextApiRequest, res: NextApiResponse, context?: any
 	res.send(await db.users().find([], { offset, limit }));
 };
 
-const addUser = async (req, NextApiRequest, res: NextApiResponse, context?: any) => {
+const addUser = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	
 };
 

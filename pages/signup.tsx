@@ -1,18 +1,19 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { signupWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
 import { Transition } from "@headlessui/react";
+import { GetServerSidePropsContext } from "next";
 import Head from 'next/head';
 
-interface ValidationErrors {
+type ValidationErrors = {
 	email?: string,
 	username?: string,
 	password?: string
 };
-interface FormInput {
+type FormInput = {
 	email: string,
 	username: string,
 	password: string,
@@ -50,7 +51,7 @@ const SignupPage = function () {
 
 	const onSubmit = async function (values: FormInput) {
 		await signupWithEmail(values.email, values.password, values.username);
-		router.push("/");
+		router.push("/profile", );
 	};
 
 	return (
@@ -109,7 +110,7 @@ const SignupPage = function () {
 	);
 };
 
-export const getServerSideProps = async function ({ req }) {
+export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
 	const authHandler = new AuthHandler;
 	const sessionCookie: string = req.cookies.session;
 
