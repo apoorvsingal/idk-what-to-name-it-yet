@@ -60,9 +60,9 @@ const SignupPage = function () {
 				<title>Sign up - Kaow</title>
 			</Head>
 			<main className="bg-darkBlue text-lg text-white w-screen h-screen flex justify-center items-center">
-				<h1 className="text-left text-3xl sm:text-4xl mb-2">Sign Up</h1>
-
 				<div className="bg-white p-6 sm:p-10 text-darkBlue w-screen sm:max-w-lg flex flex-col gap-3 rounded">
+					<h1 className="text-left text-3xl sm:text-4xl mb-2">Sign Up</h1>
+				
 					<Formik
 						initialValues={{ email: '', password: '', password2: '', displayName: '', bio: '', username: '' } as any}
 						validate={validateForm as any}
@@ -70,7 +70,6 @@ const SignupPage = function () {
 					>
 						{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 							<Form className="py-2">
-
 								<h2 className="text-sm font-medium py-1">Email:</h2>
 								<ErrorMessage name="email">
 									{msg => <div className="text-xs text-red">{msg}</div>}
@@ -89,7 +88,7 @@ const SignupPage = function () {
 								</ErrorMessage>
 								<Field name="password" type="password" className="p-1 bg-lightGray block w-full rounded-sm border border-lightGray outline-none focus:border-lightRed transition duration-300 ease-out" />
 
-								<button className="bg-red text-white w-max py-2 px-6 rounded-md my-4 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Sign Up</button>
+								<button className="bg-red text-white w-max py-2 px-6 rounded-md my-4 text-lg disabled:bg-lightRed hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Sign Up</button>
 							</Form>
 						)}
 					</Formik>

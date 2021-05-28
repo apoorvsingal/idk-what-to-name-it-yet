@@ -1,7 +1,11 @@
-import firebase from "../firebase/client";
+import initFirebase from "../firebase/client";
 import { login, signup } from "../api";
 
+const firebaseProm = initFirebase(true);
+
 export const loginWithEmail = async (email: string, password: string) => {
+	const firebase = await firebaseProm;
+
 	await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 	await firebase.auth().signInWithEmailAndPassword(email, password);
 
@@ -14,6 +18,8 @@ export const loginWithEmail = async (email: string, password: string) => {
 };
 
 export const signupWithEmail = async (email: string, password: string, username: string) => {
+	const firebase = await firebaseProm;
+
 	await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 	await firebase.auth().createUserWithEmailAndPassword(email, password);
 	
