@@ -31,10 +31,10 @@ export interface NewUser {
 	bio: string
 };
 export enum UserRole {
-	USER,
-	MODERATOR,
-	ADMIN,
-	OWNER
+	USER = 25,
+	MODERATOR = 50,
+	ADMIN = 75,
+	OWNER = 100
 };
 
 export interface UserInfo {
