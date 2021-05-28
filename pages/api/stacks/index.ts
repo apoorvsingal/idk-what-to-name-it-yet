@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { AuthHandler } from "../../../lib/auth/server";
+import { TechStack, TechStackData, UserRole } from "../../../lib/data";
 import { Database } from "../../../lib/db";
 import { error, firebase, auth } from "../../../lib/middlewares";
 
@@ -12,7 +14,8 @@ const getStacks = async (req: NextApiRequest, res: NextApiResponse, context?: an
 };
 
 const addStack = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
-	
+	const data: TechStackData = req.body;
+	res.send(await db.techStacks().add(new TechStack("", data)));
 };
 
 export default error(firebase(auth(
@@ -21,12 +24,15 @@ export default error(firebase(auth(
 		case "GET":
 			return await getStacks(req, res, context);
 		case "POST":
-			// return await addStack(req, res, context);
+			return await addStack(req, res, context);
 		}
 		res.status(400).end();
 	}, {
 		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
-
-		}
+			if(context.user.role < UserRole.ADMIN){
+				throw new Error;
+			}
+		},
+		fullUserContext: true
 	}
 )));

@@ -78,11 +78,11 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 						<ErrorMessage name="projectType" />
 
 						Description:
-					<ErrorMessage name="description" />
+						<ErrorMessage name="description" />
 						<Field name="description" type="text" />
 
 						Url:
-					<ErrorMessage name="url" />
+						<ErrorMessage name="url" />
 						<Field name="url" type="text" />
 
 						<button type="submit" disabled={isSubmitting}>Submit</button>

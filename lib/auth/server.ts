@@ -1,6 +1,6 @@
 import admin, { credential } from "../firebase/admin";
 import { Database } from "../db";
-import { User, NewUser, UserInfo } from "../data";
+import { User, NewUser, UserInfo, UserRole } from "../data";
 
 export class AuthHandler {
 	private _db: Database;
@@ -22,6 +22,7 @@ export class AuthHandler {
 		const user: User = new User(uid, {
 			username: userMeta.username,
 			bio: userMeta.bio || "",
+			role: UserRole.USER,
 			upvotes: 0,
 			completedProjectTypes: [],
 			startedProjectTypes: []
@@ -39,6 +40,7 @@ export class AuthHandler {
 			photoURL: firebaseUser.photoURL || null,
 			username: data.username,
 			upvotes: data.upvotes,
+			role: data.role,
 			bio: data.bio
 		};
 	};

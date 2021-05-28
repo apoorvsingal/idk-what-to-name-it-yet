@@ -27,14 +27,17 @@ export const firebase = (callback: MiddlewareCallback) => {
 	};
 };
 
-export const auth = (callback: MiddlewareCallback, options: { validate?: MiddlewareCallback } = {}) => {
+export const auth = (callback: MiddlewareCallback, options: { validate?: MiddlewareCallback, fullUserContext?: boolean } = {}) => {
 	return async (req: NextApiRequest, res: NextApiResponse, context: any = {}) => {
 		if(req.method == "GET"){
 			await callback(req, res, context);
 		}
 		try {
 			context.decodedIdToken = await authHandler.verifySessionCookie(req.cookies.session);
-			
+
+			if(options.fullUserContext){
+				context.user = await authHandler.getUser(context.decodedIdToken.uid);
+			}
 			if(options.validate) {
 				await options.validate(req, res, context);
 			}

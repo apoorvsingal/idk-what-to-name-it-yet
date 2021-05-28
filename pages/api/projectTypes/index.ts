@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Database } from "../../../lib/db";
-import { Uid } from "../../../lib/data";
+import { Uid, UserRole } from "../../../lib/data";
 import { auth, error, firebase } from "../../../lib/middlewares";
 
 const db = new Database;
@@ -33,8 +33,11 @@ export default error(firebase(auth(
 		}
 		res.status(400).end();
 	}, {
-		validate: async(req: NextApiRequest, res: NextApiResponse, context?: any) => {
-
-		}
+		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+			if(context.user.role < UserRole.ADMIN){
+				throw new Error;
+			}
+		},
+		fullUserContext: true
 	}
 )));

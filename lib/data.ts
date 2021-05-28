@@ -31,6 +31,13 @@ export interface NewUser {
 	username: string,
 	bio: string
 };
+export enum UserRole {
+	USER,
+	MODERATOR,
+	ADMIN,
+	OWNER
+};
+
 export interface UserInfo {
 	uid: Uid,
 	displayName: string | null,
@@ -38,12 +45,14 @@ export interface UserInfo {
 	photoURL: string | null,
 	username: string,
 	upvotes: number,
+	role: UserRole,
 	bio: string
 };
 export interface UserData {
 	username: string,
 	bio: string,
 	upvotes: number,
+	role: UserRole,
 	startedProjectTypes: Uid[],
 	completedProjectTypes: Uid[]
 };
