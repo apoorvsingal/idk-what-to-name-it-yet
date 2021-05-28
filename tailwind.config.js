@@ -3,15 +3,14 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		colors: {
-			darkBlue: 'var(--darkBlue)',
-			purple: 'var(--purple)',
-			darkPurple: 'var(--darkPurple)',
-			red: 'var(--red)',
-			lightRed: 'var(--lightRed)',
-			orange: 'var(--orange)',
 			white: 'var(--white)',
-      lightGray: 'var(--lightGray)',
-		},
+			snow: 'var(--snow)',
+			lightPurple: 'var(--lightPurple)',		
+			purple: 'var(--purple)',
+      gray: 'var(--gray)',
+			bg: 'var(--bg)',
+      black: 'var(--black)',
+    },
 		screens: {
 			'sm': '480px',
 			'md': '620px',
