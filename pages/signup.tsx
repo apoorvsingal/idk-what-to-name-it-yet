@@ -66,7 +66,7 @@ const EmailSignUpForm = () => {
           <div className="flex justify-between py-2">
             <h2 className="text-base font-medium py-1">Email:</h2>
             <ErrorMessage name="email">
-              {msg => <div className="text-xs text-red">{msg}</div>}
+              {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
             <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
           </div>
@@ -74,7 +74,7 @@ const EmailSignUpForm = () => {
           <div className="flex justify-between py-2">
             <h2 className="text-base font-medium py-1">Username:</h2>
             <ErrorMessage name="username">
-              {msg => <div className="text-xs text-red">{msg}</div>}
+              {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
             <Field name="username" type="text" className="p-1 bg-snow w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
           </div>
@@ -82,12 +82,12 @@ const EmailSignUpForm = () => {
           <div className="flex justify-between py-2">
             <h2 className="text-base font-medium py-1">Password:</h2>
             <ErrorMessage name="password">
-              {msg => <div className="text-xs text-red">{msg}</div>}
+              {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
             <Field name="password" type="password" className="p-1 bg-snow block w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
           </div>
 
-          <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:bg-purple transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>
+          <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none" type="submit" disabled={isSubmitting}>
             Sign Up
           </button>
         </Form>
@@ -134,7 +134,7 @@ const NewSignUp = () => {
       <p className="text-xs font-extralight md:text-sm">
         Already have an account?
         <Link href="/login">
-          <a className="text-purple hover:text-red transition duration-300 pl-1 ease-in-out">
+          <a className="text-purple hover transition duration-300 pl-1 ease-in-out">
             Sign in
           </a>
         </Link>
@@ -173,7 +173,7 @@ const SignUpAfterProvider = () => {
           <div className="flex justify-between py-2">
             <h2 className="text-base font-medium py-1">Username:</h2>
             <ErrorMessage name="username">
-              {msg => <div className="text-xs text-red">{msg}</div>}
+              {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
             <Field name="username" type="text" className="p-1 bg-snow w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
           </div>
