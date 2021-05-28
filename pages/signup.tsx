@@ -96,7 +96,7 @@ const EmailSignUpForm = () => {
   );
 };
 
-const SIgnInProviders = () => {
+const SignInProviders = () => {
   const router = useRouter();
 
   const onLoginWithGoogle = async () => {
