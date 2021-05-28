@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import initFirebase from "../lib/firebase/client";
+import firebase from "../lib/firebase/client";
 import '../styles/style.css';
 
 type AppProps = {
@@ -7,11 +7,9 @@ type AppProps = {
 	pageProps: object
 }
 
-const firebaseProm = initFirebase();
-
 const App = function ({ Component, pageProps }: AppProps) {
 	useEffect(() => {
-		firebaseProm.then(firebase => firebase.analytics());
+		firebase.analytics();
 	}, []);
 
 	return <Component {...pageProps}/>;

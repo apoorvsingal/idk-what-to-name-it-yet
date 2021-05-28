@@ -21,12 +21,12 @@ export class AuthHandler {
 		}
 		const user: User = new User(uid, {
 			username: userMeta.username,
-			bio: userMeta.bio,
+			bio: userMeta.bio || "",
 			upvotes: 0,
 			completedProjectTypes: [],
 			startedProjectTypes: []
 		});
-		await this._db.users().save(user);
+		await this._db.users().save(user, { upsert: true });
 		return user;
 	};
 	async getUser(uid: string): Promise<UserInfo> {
