@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { signupWithEmail } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
-import { Transition } from "@headlessui/react";
 import { GetServerSidePropsContext } from "next";
 import Head from 'next/head';
 
@@ -103,7 +102,9 @@ const SignupPage = function () {
                   <Field name="password" type="password" className="p-1 bg-snow block w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
                 </div>
 
-                <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:bg-purple transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>Sign Up</button>
+                <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:bg-purple transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>
+                  Sign Up
+                </button>
               </Form>
             )}
           </Formik>
