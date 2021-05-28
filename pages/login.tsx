@@ -86,11 +86,12 @@ const LoginPage = function () {
             {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
               <Form className="py-2">
                 <div className="flex justify-between py-2">
+
                   <h2 className="text-base font-medium -mb-2 py-1">Email:</h2>
                   <ErrorMessage name="email">
                     {msg => <div className="text-xs text-red">{msg}</div>}
                   </ErrorMessage>
-                  <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-orange transition duration-300 ease-out text-lg" />
+                  <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-purple transition duration-300 ease-out text-lg" />
                 </div>
 
                 <div className="flex justify-between py-2">
@@ -98,7 +99,7 @@ const LoginPage = function () {
                   <ErrorMessage name="password">
                     {msg => <div className="text-xs text-red">{msg}</div>}
                   </ErrorMessage>
-                  <Field name="password" type="password" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-orange transition duration-300 ease-out" />
+                  <Field name="password" type="password" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-purple transition duration-300 ease-out" />
                 </div>
 
                 <button className="bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>
