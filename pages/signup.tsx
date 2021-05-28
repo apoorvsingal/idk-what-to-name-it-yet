@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useRouter } from "next/router";
-import { signupWithEmail, signupWithIdToken } from "../lib/auth/client";
+import { Router, useRouter } from "next/router";
+import { loginWithGithub, loginWithGoogle, signupWithEmail, signupWithIdToken } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
 import { GetServerSidePropsContext } from "next";
@@ -96,14 +96,39 @@ const EmailSignUpForm = () => {
   );
 };
 
+const SIgnInProviders = () => {
+  const router = useRouter();
+
+  const onLoginWithGoogle = async () => {
+    try {
+      await loginWithGoogle();
+      router.push("/profile");
+    } catch(error){
+      console.error(error);
+    }
+  };
+  
+  const onLoginWithGithub = async () => {
+    try {
+      await loginWithGithub();
+      router.push("/profile");
+    } catch(error){
+      console.error(error);
+    }
+  };
+  
+  return (
+    <div className="flex gap-2 justify-between my-6 flex-wrap">
+      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Sign Up with Google</button>
+      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
+    </div>
+  );
+};
+
 const NewSignUp = () => {
   return (
     <>
-      <div className="flex gap-2 justify-between my-6 flex-wrap">
-        <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6">Sign Up with Google</button>
-        <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6">Sign Up with GitHub</button>
-      </div>
-
+      <SignInProviders />
       <EmailSignUpForm />
 
       <p className="text-xs font-extralight md:text-sm">
