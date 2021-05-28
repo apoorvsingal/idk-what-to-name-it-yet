@@ -68,6 +68,7 @@ const LoginPage = function () {
                 <h1 className="text-purple font-bold text-left pb-8 text-3xl sm:text-4xl">Login</h1>
 
                 <div className="flex justify-between py-2">
+
                   <h2 className="text-base font-medium -mb-2 py-1">Email:</h2>
                   <ErrorMessage name="email">
                     {msg => <div className="text-xs text-red">{msg}</div>}
