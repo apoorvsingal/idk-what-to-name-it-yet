@@ -15,7 +15,9 @@ const getStacks = async (req: NextApiRequest, res: NextApiResponse, context?: an
 
 const addStack = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
 	const data: TechStackData = req.body;
-	res.send(await db.techStacks().add(new TechStack("", data)));
+	
+	await db.techStacks().add(new TechStack("", data));
+	res.send({ ok: true });
 };
 
 export default error(firebase(auth(

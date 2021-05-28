@@ -1,4 +1,3 @@
-
 export type Uid = string;
 export type Url = string;
 

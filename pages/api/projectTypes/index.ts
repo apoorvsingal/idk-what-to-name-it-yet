@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Database } from "../../../lib/db";
-import { Uid, UserRole } from "../../../lib/data";
+import { ProjectType, ProjectTypeData, Uid, UserRole } from "../../../lib/data";
 import { auth, error, firebase } from "../../../lib/middlewares";
 
 const db = new Database;
@@ -20,7 +20,10 @@ const getProjectTypes = async (req: NextApiRequest, res: NextApiResponse, contex
 };
 
 const addProjectType = async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
+	const data: ProjectTypeData = req.body;
 
+	await db.projectTypes().add(new ProjectType("", data));
+	res.send({ ok: true });
 };
 
 export default error(firebase(auth(
@@ -29,7 +32,7 @@ export default error(firebase(auth(
 		case "GET":
 			return await getProjectTypes(req, res, context);
 		case "POST":
-			// return await addProjectType(req, res, context);
+			return await addProjectType(req, res, context);
 		}
 		res.status(400).end();
 	}, {
