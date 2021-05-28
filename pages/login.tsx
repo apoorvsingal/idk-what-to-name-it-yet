@@ -56,7 +56,7 @@ const LoginPage = function () {
         <title>Login - Kaow</title>
       </Head>
       <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-white w-screen h-screen flex justify-center items-center">
-        <div className="bg-white p-8 text-gray w-max flex flex-col gap-3 rounded">
+        <div className="bg-white p-8 text-gray w-full h-screen flex flex-col gap-3 rounded sm:w-max sm:h-auto">
 
           <Formik
             initialValues={{ email: '', password: '' } as any}
@@ -73,7 +73,7 @@ const LoginPage = function () {
                   <ErrorMessage name="email">
                     {msg => <div className="text-xs text-red">{msg}</div>}
                   </ErrorMessage>
-                  <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-orange transition duration-300 ease-out text-lg" />
+                  <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-purple transition duration-300 ease-out text-lg" />
                 </div>
 
                 <div className="flex justify-between py-2">
@@ -81,7 +81,7 @@ const LoginPage = function () {
                   <ErrorMessage name="password">
                     {msg => <div className="text-xs text-red">{msg}</div>}
                   </ErrorMessage>
-                  <Field name="password" type="password" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-orange transition duration-300 ease-out" />
+                  <Field name="password" type="password" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-purple transition duration-300 ease-out" />
                 </div>
 
                 <button className="bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>

@@ -61,7 +61,7 @@ const SignupPage = function () {
 
       <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-gray w-screen h-screen flex justify-center items-center">
 
-        <div className="bg-white p-6 sm:p-10 text-darkBlue w-screen sm:max-w-lg flex flex-col rounded">
+        <div className="bg-white p-8 text-gray w-full h-screen flex flex-col gap-3 rounded sm:w-max sm:h-auto">
           <Formik
             initialValues={{ email: '', password: '', password2: '', displayName: '', bio: '', username: '' } as any}
             validate={validateForm as any}
