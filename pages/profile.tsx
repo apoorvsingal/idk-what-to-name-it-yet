@@ -38,11 +38,13 @@ export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => 
 	}
 	try {
 		await authHandler.init();
-
 		const { uid } = await authHandler.verifySessionCookie(sessionCookie);
-		const user = await authHandler.getUser(uid);
 
-		return { props: { user } };
+		try {
+			return { props: { user: await authHandler.getUser(uid) } };
+		} catch(error){
+			return { redirect: { destination: "/signup?next=true", permanent: false } };
+		}
 	} catch (error) {
 		console.error(error);
 		return { redirect: { destination: "/login", permamnent: false } };

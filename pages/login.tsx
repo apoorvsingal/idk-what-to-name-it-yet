@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import { loginWithEmail } from "../lib/auth/client";
+import { loginWithEmail, loginWithGoogle } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
 import { GetServerSidePropsContext } from "next";
@@ -40,6 +40,20 @@ const validateForm = (values: FormInput): ValidationErrors => {
 const LoginPage = function () {
   const router = useRouter();
 
+	const onLoginWithGoogle = async () => {
+		try {
+			const { idToken, exists } = await loginWithGoogle();
+
+			if(exists){
+				router.push("/profile");
+			} else {
+				router.push("/signup?next=true");
+			}
+		} catch(error){
+			console.error(error);
+		}
+	};
+
   const onSubmit = async function (values: FormInput) {
     try {
       await loginWithEmail(values.email, values.password);
@@ -56,7 +70,13 @@ const LoginPage = function () {
         <title>Login - Kaow</title>
       </Head>
       <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-white w-screen h-screen flex justify-center items-center">
-        <div className="bg-white p-8 text-gray w-full h-screen flex flex-col gap-3 rounded sm:w-max sm:h-auto">
+        <div className="bg-white p-8 text-gray w-max flex flex-col gap-3 rounded">
+					<h1 className="text-purple font-bold text-left pb-8 text-3xl sm:text-4xl">Login</h1>
+
+					<div className="flex gap-2 justify-between flex-wrap">
+						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Login with Google</button>
+						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6">Login with GitHub</button>
+					</div>
 
           <Formik
             initialValues={{ email: '', password: '' } as any}
@@ -65,8 +85,6 @@ const LoginPage = function () {
           >
             {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
               <Form className="py-2">
-                <h1 className="text-purple font-bold text-left pb-8 text-3xl sm:text-4xl">Login</h1>
-
                 <div className="flex justify-between py-2">
 
                   <h2 className="text-base font-medium -mb-2 py-1">Email:</h2>

@@ -40,8 +40,8 @@ export class Collection<T extends Entity<any>> {
 		this.db = db;
 		this._firestore_collec = db.collectionRaw(name);
 	};
-	async save(entity: T){
-		await this._firestore_collec.doc(entity.uid).update(entity.data);
+	async save(entity: T, options?: { upsert?: boolean }){
+		await this._firestore_collec.doc(entity.uid)[options?.upsert ? "set" : "update"](entity.data);
 	};
 	async add(entity: T){
 		const { id } = await this._firestore_collec.add(entity.data);

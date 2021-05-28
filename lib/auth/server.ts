@@ -21,20 +21,16 @@ export class AuthHandler {
 		}
 		const user: User = new User(uid, {
 			username: userMeta.username,
-			bio: userMeta.bio,
+			bio: userMeta.bio || "",
 			upvotes: 0,
 			completedProjectTypes: [],
 			startedProjectTypes: []
 		});
-		await this._db.users().save(user);
+		await this._db.users().save(user, { upsert: true });
 		return user;
 	};
 	async getUser(uid: string): Promise<UserInfo> {
-		const prom1 = admin.auth().getUser(uid);
-		const prom2 = this._db.users().get(uid);
-
-		const firebaseUser: admin.auth.UserRecord = await prom1;
-		const { data }: User = await prom2;
+		const [firebaseUser, { data }]: [admin.auth.UserRecord, User] = await Promise.all([admin.auth().getUser(uid), this._db.users().get(uid)]);
 
 		return {
 			uid: firebaseUser.uid,
@@ -48,6 +44,9 @@ export class AuthHandler {
 	};
 	verifyIdToken(idToken: string){
 		return admin.auth().verifyIdToken(idToken);
+	};
+	createCustomToken(uid: string){
+		return admin.auth().createCustomToken(uid);
 	};
 	async getSessionCookie(idToken: string): Promise<{ cookie: string, maxAge: number }> {
 		const { auth_time } = await this.verifyIdToken(idToken);
