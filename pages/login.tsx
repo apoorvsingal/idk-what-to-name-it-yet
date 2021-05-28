@@ -47,7 +47,7 @@ const LoginPage = function () {
 			if(exists){
 				router.push("/profile");
 			} else {
-				router.push("/signup?token="+idToken);
+				router.push("/signup?next=true");
 			}
 		} catch(error){
 			console.error(error);

@@ -18,7 +18,6 @@ type FormInput = {
   password: string,
 };
 
-
 const EmailSignUpForm = () => {
   const router = useRouter();
 
@@ -119,7 +118,7 @@ const NewSignUp = () => {
   )
 };
 
-const SignUpAfterProvider = ({ idToken }: { idToken: string }) => {
+const SignUpAfterProvider = () => {
   const router = useRouter();
 
   const validateForm = (values: { username: string }): { username?: string } => {
@@ -134,7 +133,7 @@ const SignUpAfterProvider = ({ idToken }: { idToken: string }) => {
   };
 
   const onSubmit = async function (values: { username: string }) {
-    await signupWithIdToken(idToken, values.username);
+    await signupWithIdToken(values.username);
     router.push("/profile");
   };
 
@@ -165,7 +164,6 @@ const SignUpAfterProvider = ({ idToken }: { idToken: string }) => {
 
 const SignupPage = function () {
   const router = useRouter();
-  const idToken = router.query.token?.toString();
 
   return (
     <>
@@ -176,7 +174,7 @@ const SignupPage = function () {
       <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-gray w-screen h-screen flex justify-center items-center">
         <div className="bg-white p-6 sm:p-10 text-darkBlue w-screen sm:max-w-lg flex flex-col rounded">  
           <h1 className="text-purple font-bold text-left text-3xl sm:text-4xl mb-6">Sign Up</h1>
-          {idToken ? <SignUpAfterProvider idToken={idToken}/> : <NewSignUp />}
+          {router.query.next ? <SignUpAfterProvider/> : <NewSignUp />}
         </div>
       </main>
     </>
@@ -186,9 +184,9 @@ const SignupPage = function () {
 export const getServerSideProps = async ({ req, query }: GetServerSidePropsContext) => {
   const authHandler = new AuthHandler;
   const sessionCookie: string = req.cookies.session;
-  const token = query.token;
+  const next = query.next?.toString();
 
-  if (!sessionCookie || token) {
+  if (!sessionCookie || next) {
     return { props: {} };
   }
   try {

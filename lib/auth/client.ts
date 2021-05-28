@@ -3,7 +3,6 @@ import { login, signup } from "../api";
 import "firebase/auth";
 
 export const loginWithEmail = async (email: string, password: string) => {
-	await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 	await firebase.auth().signInWithEmailAndPassword(email, password);
 
 	const currentUser = firebase.auth().currentUser;
@@ -16,8 +15,6 @@ export const loginWithEmail = async (email: string, password: string) => {
 
 export const loginWithGoogle = async (): Promise<{idToken?: string, exists: boolean}> => {
 	const provider = new firebase.auth.GoogleAuthProvider();
-
-	await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 	const result = await firebase.auth().signInWithPopup(provider);
 
 	const idToken = await firebase.auth().currentUser?.getIdToken();
@@ -30,7 +27,6 @@ export const loginWithGoogle = async (): Promise<{idToken?: string, exists: bool
 };
 
 export const signupWithEmail = async (email: string, password: string, username: string) => {
-	await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 	await firebase.auth().createUserWithEmailAndPassword(email, password);
 	
 	const currentUser = firebase.auth().currentUser;
@@ -45,6 +41,9 @@ export const signupWithEmail = async (email: string, password: string, username:
 	return res;
 };
 
-export const signupWithIdToken = async (idToken: string, username: string) => {
-	return await signup({ idToken, user: { username }});
+export const signupWithIdToken = async (username: string) => {
+	const idToken = await firebase.auth().currentUser?.getIdToken();
+	const res = await signup({ idToken, user: { username }});
+
+	return res;
 };
