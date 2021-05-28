@@ -13,17 +13,26 @@ export const loginWithEmail = async (email: string, password: string) => {
 	return await login({ idToken: await currentUser.getIdToken() });
 };
 
-export const loginWithGoogle = async (): Promise<{idToken?: string, exists: boolean}> => {
+export const loginWithGoogle = async () => {
 	const provider = new firebase.auth.GoogleAuthProvider();
 	const result = await firebase.auth().signInWithPopup(provider);
 
 	const idToken = await firebase.auth().currentUser?.getIdToken();
 
-	if(result.additionalUserInfo?.isNewUser){
-		return { idToken, exists: false };
+	if(!result.additionalUserInfo?.isNewUser){
+		await login({ idToken });
 	}	
-	await login({ idToken });
-	return { exists: true };
+};
+
+export const loginWithGithub = async () => {
+	const provider = new firebase.auth.GithubAuthProvider();
+	const result = await firebase.auth().signInWithPopup(provider);
+
+	const idToken = await firebase.auth().currentUser?.getIdToken();
+
+	if(!result.additionalUserInfo?.isNewUser){
+		await login({ idToken });
+	}
 };
 
 export const signupWithEmail = async (email: string, password: string, username: string) => {

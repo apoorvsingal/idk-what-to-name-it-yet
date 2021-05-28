@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import { loginWithEmail, loginWithGoogle } from "../lib/auth/client";
+import { loginWithEmail, loginWithGoogle, loginWithGithub } from "../lib/auth/client";
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
 import { GetServerSidePropsContext } from "next";
@@ -42,13 +42,16 @@ const LoginPage = function () {
 
 	const onLoginWithGoogle = async () => {
 		try {
-			const { idToken, exists } = await loginWithGoogle();
-
-			if(exists){
-				router.push("/profile");
-			} else {
-				router.push("/signup?next=true");
-			}
+			await loginWithGoogle();
+			router.push("/profile");
+		} catch(error){
+			console.error(error);
+		}
+	};
+	const onLoginWithGithub = async () => {
+		try {
+			await loginWithGithub();
+			router.push("/profile");
 		} catch(error){
 			console.error(error);
 		}
@@ -60,7 +63,6 @@ const LoginPage = function () {
       router.push("/profile");
     } catch (err) {
       console.error(err);
-      // hanadle error
     }
   };
 
@@ -75,7 +77,7 @@ const LoginPage = function () {
 
 					<div className="flex gap-2 justify-between flex-wrap">
 						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Login with Google</button>
-						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6">Login with GitHub</button>
+						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGithub}>Login with GitHub</button>
 					</div>
 
           <Formik
@@ -86,12 +88,11 @@ const LoginPage = function () {
             {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
               <Form className="py-2">
                 <div className="flex justify-between py-2">
-
                   <h2 className="text-base font-medium -mb-2 py-1">Email:</h2>
                   <ErrorMessage name="email">
                     {msg => <div className="text-xs text-red">{msg}</div>}
                   </ErrorMessage>
-                  <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-purple transition duration-300 ease-out text-lg" />
+                  <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-orange transition duration-300 ease-out text-lg" />
                 </div>
 
                 <div className="flex justify-between py-2">
@@ -99,7 +100,7 @@ const LoginPage = function () {
                   <ErrorMessage name="password">
                     {msg => <div className="text-xs text-red">{msg}</div>}
                   </ErrorMessage>
-                  <Field name="password" type="password" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-purple transition duration-300 ease-out" />
+                  <Field name="password" type="password" className="p-1 bg-snow w-9/12 rounded outline-none focus:border-orange transition duration-300 ease-out" />
                 </div>
 
                 <button className="bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:bg-lightRed transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>
