@@ -36,7 +36,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 						<Field name="stack">
 							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
-									<Listbox.Label>Choose Stack</Listbox.Label>
+									<Listbox.Label className="pr-2">Choose Stack</Listbox.Label>
 									<Listbox.Button>{field.value && field.value.data.name}</Listbox.Button>
 									<Listbox.Options>
 										{stacks.map(stack => (

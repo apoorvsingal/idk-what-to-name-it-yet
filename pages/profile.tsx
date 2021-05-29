@@ -10,13 +10,13 @@ type ProfilePageProps = {
 const ProfilePage = function ({ user }: ProfilePageProps){
 	return (
 		<main className="bg-bg text-white w-full h-screen">
-			<div className="w-full p-6 sm:p-8 bg-snow flex flex-row items-start text-purple">
+			<div className="w-full p-6 sm:p-8 bg-snow flex flex-row items-start text-purple shadow-login">
 				<span className="flex sm:flex-row">
 					<Image
 						src={user.photoURL || "https://media.discordapp.net/attachments/815202642006507590/847062656077791242/unknown.png"}
 						height="100%"
 						width="100%"
-						className="rounded-full"
+						className="rounded-full shadow-sm"
 					/>
 					<span className="px-5">
 						<div className="font-bold text-3xl mb-1.5 md:text-4xl">{user.displayName}</div>
