@@ -119,8 +119,8 @@ const SignInProviders = () => {
   
   return (
     <div className="flex gap-2 sm:justify-between my-6 flex-wrap justify-center items-center sm:flex-row flex-col">
-      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 " onClick={onLoginWithGoogle}>Sign Up with Google</button>
-      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 sm:mt-0 mt-3" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
+      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Sign Up with Google</button>
+      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 sm:mt-0 mt-2" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
     </div>
   );
 };
@@ -197,7 +197,7 @@ const SignupPage = function () {
       </Head>
 
       <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-gray w-full h-screen flex justify-center items-center">
-        <div className="bg-white p-6 sm:p-10 w-screen sm:max-w-lg flex flex-col rounded">  
+        <div className="bg-white p-8 text-gray sm:w-max flex flex-col gap-3 rounded w-full sm:h-auto h-screen">  
           <h1 className="text-purple font-bold text-left text-3xl sm:text-4xl mb-6">Sign Up</h1>
           {router.query.next ? <SignUpAfterProvider/> : <NewSignUp />}
         </div>

@@ -71,13 +71,13 @@ const LoginPage = function () {
       <Head>
         <title>Login - Kaow</title>
       </Head>
-      <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-white w-screen h-screen flex justify-center items-center">
-        <div className="bg-white p-8 text-gray w-max flex flex-col gap-3 rounded">
+      <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-white w-full h-screen flex justify-center items-center">
+        <div className="bg-white p-8 text-gray sm:w-max flex flex-col gap-3 rounded w-full sm:h-auto h-screen">
 					<h1 className="text-purple font-bold text-left pb-8 text-3xl sm:text-4xl">Login</h1>
 
-					<div className="flex gap-2 justify-between flex-wrap">
+					<div className="flex gap-2 sm:justify-between my-6 flex-wrap justify-center items-center sm:flex-row flex-col">
 						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Login with Google</button>
-						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGithub}>Login with GitHub</button>
+						<button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 sm:mt-0 mt-2" onClick={onLoginWithGithub}>Login with GitHub</button>
 					</div>
 
           <Formik
@@ -88,7 +88,7 @@ const LoginPage = function () {
             {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
               <Form className="py-2">
                 <div className="flex justify-between py-2">
-                  <h2 className="text-base font-medium -mb-2 py-1">Email:</h2>
+                  <h2 className="text-base font-medium -mb-2 p-2">Email:</h2>
                   <ErrorMessage name="email">
                     {msg => <div className="text-xs">{msg}</div>}
                   </ErrorMessage>

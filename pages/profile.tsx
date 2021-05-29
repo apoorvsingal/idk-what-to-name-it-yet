@@ -9,7 +9,7 @@ type ProfilePageProps = {
 
 const ProfilePage = function ({ user }: ProfilePageProps){
 	return (
-		<main className="bg-bg text-white w-screen h-screen">
+		<main className="bg-bg text-white w-full h-screen">
 			<div className="w-full p-6 sm:p-8 bg-snow flex flex-row items-start text-purple">
 				<span className="flex sm:flex-row">
 					<Image
