@@ -4,12 +4,11 @@ module.exports = {
 	theme: {
 		colors: {
 			primary: 'var(--primary)',
-			secondaryPrimary: 'var(--secondaryPrimary)',
-			secondaryPrimaryLight: 'var(--primaryLight)',
 			secondary: 'var(--secondary)',
       secondaryDark: 'var(--secondaryDark)',
-			highlight: 'var(--highlight)',
-      highlightDark: 'var(--highlightDark)',
+			secondaryPrimary: 'var(--secondaryPrimary)',
+			secondaryPrimaryLight: 'var(--secondaryPrimaryLight)',
+			secondaryPrimaryDark: 'var(--secondaryPrimaryDark)',
     },
 		screens: {
 			'sm': '480px',
