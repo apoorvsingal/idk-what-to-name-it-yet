@@ -68,7 +68,7 @@ const EmailSignUpForm = () => {
             <ErrorMessage name="email">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="email" type="email" className="p-1 bg-snow w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
+            <Field name="email" type="email" className="p-1 pl-1.5 bg-snow w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
           </div>
 
           <div className="flex justify-between py-2">
@@ -76,7 +76,7 @@ const EmailSignUpForm = () => {
             <ErrorMessage name="username">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="username" type="text" className="p-1 bg-snow w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
+            <Field name="username" type="text" className="p-1 pl-1.5 bg-snow w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
           </div>
 
           <div className="flex justify-between py-2">
@@ -84,7 +84,7 @@ const EmailSignUpForm = () => {
             <ErrorMessage name="password">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="password" type="password" className="p-1 bg-snow block w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
+            <Field name="password" type="password" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
           </div>
 
           <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none" type="submit" disabled={isSubmitting}>
@@ -118,9 +118,9 @@ const SignInProviders = () => {
   };
   
   return (
-    <div className="flex gap-2 justify-between my-6 flex-wrap">
-      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Sign Up with Google</button>
-      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
+    <div className="flex gap-2 sm:justify-between my-6 flex-wrap justify-center items-center sm:flex-row flex-col">
+      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 " onClick={onLoginWithGoogle}>Sign Up with Google</button>
+      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 sm:mt-0 mt-3" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
     </div>
   );
 };
@@ -196,8 +196,8 @@ const SignupPage = function () {
         <title>Sign up - Kaow</title>
       </Head>
 
-      <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-gray w-screen h-screen flex justify-center items-center">
-        <div className="bg-white p-6 sm:p-10 text-darkBlue w-screen sm:max-w-lg flex flex-col rounded">  
+      <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-gray w-full h-screen flex justify-center items-center">
+        <div className="bg-white p-6 sm:p-10 w-screen sm:max-w-lg flex flex-col rounded">  
           <h1 className="text-purple font-bold text-left text-3xl sm:text-4xl mb-6">Sign Up</h1>
           {router.query.next ? <SignUpAfterProvider/> : <NewSignUp />}
         </div>
