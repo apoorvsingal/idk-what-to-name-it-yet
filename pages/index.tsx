@@ -11,8 +11,8 @@ const Index = () => {
 			<main className="bg-bg text-white w-full h-screen">
 				<Link href="/signup"><a className="p-1">signup</a></Link>
 				<Link href="/profile"><a className="p-1">profile</a></Link>
-				<Link href="/stacks/new"><a className="p-1">idk</a></Link>
-				<Link href="/projects/new"><a className="p-1">no</a></Link>
+				<Link href="/stacks/new"><a className="p-1">stacks</a></Link>
+				<Link href="/projects/new"><a className="p-1">projects</a></Link>
 			</main>
 		</>
 	)

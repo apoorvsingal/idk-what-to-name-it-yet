@@ -40,15 +40,15 @@ const NewProjectPage = function ({ user, stacks }: NewStackPageProps) {
 						<ErrorMessage name="icon">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
-						<Field name="name" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
+						<Field name="name" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out text-gray" />
 
 						Description:
 						<ErrorMessage name="icon">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
-						<Field name="description" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
+						<Field name="description" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out text-gray mb-2" />
 
-						<button type="submit" className="bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none m-auto" disabled={isSubmitting}>Submit</button>
+						<button type="submit" className="w-max bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none m-auto sm:m-0" disabled={isSubmitting}>Submit</button>
 					</Form>
 				)}
 			</Formik>
