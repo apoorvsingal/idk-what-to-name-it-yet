@@ -37,6 +37,7 @@ export const loginWithGithub = async () => {
 
 export const signupWithEmail = async (email: string, password: string, username: string) => {
 	await firebase.auth().createUserWithEmailAndPassword(email, password);
+	await firebase.auth().currentUser?.updateProfile({ displayName: username });
 	
 	const currentUser = firebase.auth().currentUser;
 	

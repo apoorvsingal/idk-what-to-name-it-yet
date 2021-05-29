@@ -36,7 +36,6 @@ export enum UserRole {
 	ADMIN = 75,
 	OWNER = 100
 };
-
 export interface UserInfo {
 	uid: Uid,
 	displayName: string | null,
