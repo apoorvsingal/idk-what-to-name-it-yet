@@ -8,10 +8,11 @@ const Index = () => {
 			<Head>
 				<title>Home - Kaow</title>
 			</Head>
-			<main className="bg-bg text-white w-screen h-screen">
-				<Link href="/signup"><a>signup</a></Link>
-				<Link href="/profile"><a>profile</a></Link>
-				<Link href="/stacks/new"><a>idk</a></Link>
+			<main className="bg-bg text-white w-full h-screen">
+				<Link href="/signup"><a className="p-1">signup</a></Link>
+				<Link href="/profile"><a className="p-1">profile</a></Link>
+				<Link href="/stacks/new"><a className="p-1">idk</a></Link>
+				<Link href="/projects/new"><a className="p-1">no</a></Link>
 			</main>
 		</>
 	)

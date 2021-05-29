@@ -20,7 +20,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 	};
 
 	return (
-		<main className="bg-darkBlue text-white w-screen h-screen">
+		<main className="bg-bg text-white w-full h-screen">
 			<Formik
 				initialValues={{
 					description: '',
@@ -32,7 +32,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 				onSubmit={onSubmit}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<Form>
+					<Form className="flex flex-col p-6">
 						<Field name="stack">
 							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
@@ -78,14 +78,18 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 						<ErrorMessage name="projectType" />
 
 						Description:
-						<ErrorMessage name="description" />
-						<Field name="description" type="text" />
+						<ErrorMessage name="description">
+							{msg => <div className="text-xs">{msg}</div>}
+						</ErrorMessage>
+						<Field name="description" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out text-gray"/>
 
 						Url:
-						<ErrorMessage name="url" />
-						<Field name="url" type="text" />
+						<ErrorMessage name="url">
+							{msg => <div className="text-xs">{msg}</div>}
+						</ErrorMessage>
+						<Field name="url" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out text-gray" />
 
-						<button type="submit" disabled={isSubmitting}>Submit</button>
+						<button type="submit" className="bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none w-max" disabled={isSubmitting}>Submit</button>
 					</Form>
 				)}
 			</Formik>
