@@ -113,7 +113,7 @@ const LoginPage = function () {
             Don't have an account?
 
 						<Link href="/signup">
-              <a className="text-purple hover:text-red transition duration-300 pl-1 ease-in-out">
+              <a className="text-purple hover:text-lightPurple transition duration-300 pl-1 ease-in-out">
                 Sign up
 							</a>
             </Link>

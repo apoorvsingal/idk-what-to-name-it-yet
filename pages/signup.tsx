@@ -134,7 +134,7 @@ const NewSignUp = () => {
       <p className="text-xs font-extralight md:text-sm">
         Already have an account?
         <Link href="/login">
-          <a className="text-purple hover transition duration-300 pl-1 ease-in-out">
+          <a className="text-purple hover:text-lightPurple transition duration-300 pl-1 ease-in-out">
             Sign in
           </a>
         </Link>
