@@ -68,7 +68,7 @@ const EmailSignUpForm = () => {
             <ErrorMessage name="email">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="email" type="email" className="p-1 pl-1.5 bg-snow w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
+            <Field name="email" type="email" className="p-1 pl-1.5 bg-secondaryDark block w-9/12 rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
           </div>
 
           <div className="flex justify-between py-2">
@@ -76,7 +76,7 @@ const EmailSignUpForm = () => {
             <ErrorMessage name="username">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="username" type="text" className="p-1 pl-1.5 bg-snow w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
+            <Field name="username" type="text" className="p-1 pl-1.5 bg-secondaryDark block w-9/12 rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
           </div>
 
           <div className="flex justify-between py-2">
@@ -84,10 +84,10 @@ const EmailSignUpForm = () => {
             <ErrorMessage name="password">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="password" type="password" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out" />
+            <Field name="password" type="password" className="p-1 pl-1.5 bg-secondaryDark block w-9/12 rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
           </div>
 
-          <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none" type="submit" disabled={isSubmitting}>
+          <button className="bg-secondaryPrimary text-secondary py-2 px-6 rounded-md my-6 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none" type="submit" disabled={isSubmitting}>
             Sign Up
           </button>
         </Form>
@@ -119,8 +119,8 @@ const SignInProviders = () => {
   
   return (
     <div className="flex gap-2 sm:justify-between my-6 flex-wrap justify-center items-center sm:flex-row flex-col">
-      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6" onClick={onLoginWithGoogle}>Sign Up with Google</button>
-      <button className="text-sm w-max rounded outline-none border border-gray py-3 px-6 sm:mt-0 mt-2" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
+      <button className="text-sm w-max rounded outline-none border border-primary py-3 px-6" onClick={onLoginWithGoogle}>Sign Up with Google</button>
+      <button className="text-sm w-max rounded outline-none border border-primary py-3 px-6 sm:mt-0 mt-2" onClick={onLoginWithGithub}>Sign Up with GitHub</button>
     </div>
   );
 };
@@ -131,10 +131,10 @@ const NewSignUp = () => {
       <SignInProviders />
       <EmailSignUpForm />
 
-      <p className="text-xs font-extralight md:text-sm">
+      <p className="text-xs text-primary font-extralight md:text-sm">
         Already have an account?
         <Link href="/login">
-          <a className="text-purple hover:text-lightPurple transition duration-300 pl-1 ease-in-out">
+          <a className="text-highlight hover:text-highlightDark transition duration-300 pl-1 ease-in-out">
             Sign in
           </a>
         </Link>
@@ -175,10 +175,10 @@ const SignUpAfterProvider = () => {
             <ErrorMessage name="username">
               {msg => <div className="text-xs">{msg}</div>}
             </ErrorMessage>
-            <Field name="username" type="text" className="p-1 bg-snow w-9/12 rounded outline-none focus:border border-lightPurple transition duration-300 ease-out" />
+            <Field name="username" type="text" className="p-1 pl-1.5 bg-secondaryDark block w-9/12 rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
           </div>
 
-          <button className="bg-gradient-to-b from-lightPurple to-purple text-white w-max py-2 px-7 rounded-md my-6 text-base hover:bg-purple transition duration-200 ease-out outline-none" type="submit" disabled={isSubmitting}>
+          <button className="bg-secondaryPrimary text-secondary py-2 px-6 rounded-md my-6 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none" type="submit" disabled={isSubmitting}>
             Sign Up
           </button>
         </Form>
@@ -196,9 +196,9 @@ const SignupPage = function () {
         <title>Sign up - Kaow</title>
       </Head>
 
-      <main className="bg-bg bg-gradient-to-b from-bg to-black text-lg text-gray w-full h-screen flex justify-center items-center">
-        <div className="bg-white p-8 text-gray sm:w-max flex flex-col gap-3 rounded w-full sm:h-auto h-screen">  
-          <h1 className="text-purple font-bold text-left text-3xl sm:text-4xl mb-6">Sign Up</h1>
+      <main className="bg-primary text-lg text-secondary w-full h-screen flex justify-center items-center">
+        <div className="bg-secondary p-8 text-primary sm:w-max flex flex-col gap-3 rounded w-full sm:h-auto h-screen">  
+          <h1 className="text-primary font-bold text-left pb-8 text-3xl sm:text-4xl">Sign Up</h1>
           {router.query.next ? <SignUpAfterProvider/> : <NewSignUp />}
         </div>
       </main>

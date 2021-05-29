@@ -24,7 +24,7 @@ const NewProjectPage = function ({ user, stacks }: NewStackPageProps) {
 	};
 
 	return (
-		<main className="bg-bg text-white w-full h-screen">
+		<main className="bg-primary text-secondary w-full h-screen">
 			<Formik
 				initialValues={{ icon: null, name: '', description: '' } as any}
 				validate={validateForm as any}

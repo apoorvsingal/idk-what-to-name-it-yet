@@ -5,13 +5,21 @@
 }
 
 :root {
-	--white: #FFFFFF;
+	/* --white: #FFFFFF;
   --snow: #F9F9FF;
   --lightPurple: #9881FF;
   --purple: #8063FF;
   --gray: #2D3748;
   --bg: #101727;
-  --black : #000000;
+  --black : #000000; */
+	--primary: #2A3950;
+  --secondaryPrimary: #FF4569;
+  --secondaryPrimaryLight: #ff758f;
+  --secondary: #FFFFFF;
+  --secondaryDark: #F3F4F6;
+  --highlight: #504099;
+  --highlightDark: #2f255c;
+  --secondaryHighlight: #FF9678;
 }
 
 @tailwind base;
@@ -19,6 +27,3 @@
 @tailwind components;
 
 @tailwind utilities
-
-/* where are ya? */
-/* /signup */

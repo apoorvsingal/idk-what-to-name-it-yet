@@ -20,7 +20,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 	};
 
 	return (
-		<main className="bg-bg text-white w-full h-screen">
+		<main className="bg-primary text-lg text-secondary w-full h-screen">
 			<Formik
 				initialValues={{
 					description: '',
