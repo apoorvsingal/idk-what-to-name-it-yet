@@ -81,21 +81,21 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 						<ErrorMessage name="description">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
-						<Field name="description" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out text-gray"/>
+						<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out"/>
 
 						Url:
 						<ErrorMessage name="url">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
-						<Field name="url" type="text" className="p-1 pl-1.5 bg-snow block w-9/12 rounded outline-none border border-snow focus:border-lightPurple transition duration-300 ease-out text-gray mb-2" />
+						<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-						<button type="submit" className="w-max bg-gradient-to-b from-lightPurple to-purple text-white py-2 px-6 rounded-md my-6 text-lg hover:from-purple hover:to-lightPurple transition duration-700 ease-out outline-none m-auto sm:m-0" disabled={isSubmitting}>Submit</button>
+						<button type="submit" className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
 					</Form>
 				)}
 			</Formik>
 		</main>
-	);
-};
+	)
+}
 
 const db = new Database;
 const authHandler = new AuthHandler;
