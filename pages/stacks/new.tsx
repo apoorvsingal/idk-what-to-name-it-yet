@@ -31,18 +31,20 @@ const NewProjectPage = function ({ user, stacks }: NewStackPageProps) {
 				onSubmit={onSubmit}
 			>
 				{({ isSubmitting }) => (
-					<Form className="flex flex-col flex-1 max-w-lg p-6">
-						Icon:
-						<ErrorMessage name="icon" />
+					<Form className="flex flex-col flex-1 max-w-lg p-6 m-auto">
+						<h2 className="text-base font-medium">Icon:</h2>
+						<ErrorMessage name="icon">
+							{msg => <div className="text-xs text-secondaryPrimaryLight">{msg}</div>}
+						</ErrorMessage>
 						<Field name="icon" type="image" />
 
-						Name:
+						<h2 className="text-base font-medium">Name:</h2>
 						<ErrorMessage name="icon">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
 						<Field name="name" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-						Description:
+						<h2 className="text-base font-medium">Description:</h2>
 						<ErrorMessage name="icon">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>

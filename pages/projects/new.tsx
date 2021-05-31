@@ -32,7 +32,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 				onSubmit={onSubmit}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<Form className="flex flex-col p-6">
+					<Form className="flex flex-col p-6 m-auto">
 						<Field name="stack">
 							{({ field }: FieldProps) => (
 								<Listbox {...field} as="div">
@@ -77,17 +77,17 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 						</Field>
 						<ErrorMessage name="projectType" />
 
-						Description:
+						<h2 className="text-base font-medium">Description:</h2>
 						<ErrorMessage name="description">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
-						<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out"/>
+						<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out"/>
 
-						Url:
+						<h2 className="text-base font-medium">Url:</h2>
 						<ErrorMessage name="url">
 							{msg => <div className="text-xs">{msg}</div>}
 						</ErrorMessage>
-						<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
+						<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
 						<button type="submit" className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
 					</Form>
