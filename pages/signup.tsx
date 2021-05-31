@@ -74,6 +74,7 @@ const EmailSignUpForm = () => {
           <ErrorMessage name="username">
             {msg => <div className="text-xs text-secondaryPrimaryLight pb-1">{msg}</div>}
           </ErrorMessage>
+
           <Field name="username" type="text" className="p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
           <h2 className="text-base font-medium">Password:</h2>
@@ -82,13 +83,13 @@ const EmailSignUpForm = () => {
           </ErrorMessage>
           <Field name="password" type="password" className="p-1 pl-1.5 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-          <button className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" type="submit" disabled={isSubmitting}>
+          <button className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:bg-secondaryPrimaryDark transition duration-700 ease-out disabled:opacity-50 focus:outline-none" type="submit" disabled={isSubmitting}>
             Sign Up
           </button>
         </Form>
       )}
     </Formik>
-  );
+  )
 };
 
 const SignInProviders = () => {
@@ -175,6 +176,7 @@ const SignUpAfterProvider = () => {
           <button className="bg-secondaryPrimaryLight text-secondary  py-2 px-6 rounded-md my-6 text-lg hover:secondaryPrimary transition duration-700 ease-out outline-none" type="submit"  disabled={isSubmitting}>
             Sign Up
           </button>
+          
         </Form>
       )}
     </Formik>
