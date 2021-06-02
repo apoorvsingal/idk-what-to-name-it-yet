@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { AuthHandler } from "./auth/server";
+import { UserRole } from "./data";
 import admin, { credential } from "./firebase/admin";
 
 export type MiddlewareCallback = (req: NextApiRequest, res: NextApiResponse, context?: any) => Promise<void>;
@@ -27,7 +28,7 @@ export const firebase = (callback: MiddlewareCallback) => {
 	};
 };
 
-export const auth = (callback: MiddlewareCallback, options: { validate?: MiddlewareCallback, fullUserContext?: boolean } = {}) => {
+export const auth = (callback: MiddlewareCallback, options: { validate?: MiddlewareCallback, fullUserContext?: boolean, minRole?: UserRole } = {}) => {
 	return async (req: NextApiRequest, res: NextApiResponse, context: any = {}) => {
 		if(req.method == "GET"){
 			await callback(req, res, context);
@@ -40,6 +41,9 @@ export const auth = (callback: MiddlewareCallback, options: { validate?: Middlew
 			}
 			if(options.validate) {
 				await options.validate(req, res, context);
+			}
+			if(options.minRole && options.minRole < (context.user || await authHandler.getUser(context.decodedIdToken.uid)).role){
+				throw new Error;
 			}
 		} catch(error){
 			res.status(401).send({ error: "Unauthorized" });

@@ -95,7 +95,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 			</Formik>
 		</main>
 	)
-}
+};
 
 const db = new Database;
 const authHandler = new AuthHandler;

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Database } from "../../../lib/db";
-import { ProjectType, ProjectTypeData, Uid, UserRole } from "../../../lib/data";
+import { ProjectType, ProjectTypeData, Uid, User, UserRole } from "../../../lib/data";
 
 import { auth, error, firebase } from "../../../lib/middlewares";
 
@@ -26,12 +26,9 @@ export default error(firebase(auth(
 			return await editProjectType(req, res, context);
 		}
 		res.status(400).end();
-	}, {
-		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
-			if(context.user.role < UserRole.ADMIN){
-				throw new Error;
-			}
-		},
+	},
+	{
+		minRole: UserRole.ADMIN,
 		fullUserContext: true
 	}
 )));
