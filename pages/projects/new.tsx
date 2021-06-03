@@ -42,7 +42,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 									<Listbox {...field} as="div">
 										<Listbox.Label className="pr-2">Choose Stack</Listbox.Label>
 										<Listbox.Button className="bg-secondaryDark text-primary py-1 px-3 rounded-md text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none">{field.value && field.value.data.name}</Listbox.Button>
-										<Listbox.Options className="block outline-none bg-secondaryDark text-primary px-3 py-1 w-36">
+										<Listbox.Options className="block outline-none bg-secondaryDark text-primary px-3 py-1 w-36 cursor-pointer absolute">
 											{stacks.map(stack => (
 												<Listbox.Option
 													key={stack.uid}
