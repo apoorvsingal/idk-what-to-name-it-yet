@@ -29,12 +29,9 @@ export default error(firebase(auth(
 			return await addStack(req, res, context);
 		}
 		res.status(400).end();
-	}, {
-		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
-			if(context.user.role < UserRole.ADMIN){
-				throw new Error;
-			}
-		},
-		fullUserContext: true
+	},
+	{
+		fullUserContext: true,
+		minRole: UserRole.ADMIN
 	}
 )));

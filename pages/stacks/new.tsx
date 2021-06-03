@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ErrorMessage, Field, Form, Formik, FormikBag } from "formik";
-import { TechStack, User } from "../../lib/data";
+import { TechStack, User, UserRole } from "../../lib/data";
 import { Database } from "../../lib/db";
 import { AuthHandler } from "../../lib/auth/server";
 import { GetServerSidePropsContext } from "next";
@@ -76,6 +76,9 @@ export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => 
 		const { uid } = await authHandler.verifySessionCookie(sessionCookie);
 		const user = await authHandler.getUser(uid);
 
+		if(user.role < UserRole.ADMIN){
+			throw new Error;
+		}
 		return { props: { user } };
 	} catch (error) {
 		console.error(error);

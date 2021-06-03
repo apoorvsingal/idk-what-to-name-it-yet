@@ -35,12 +35,9 @@ export default error(firebase(auth(
 			return await addProjectType(req, res, context);
 		}
 		res.status(400).end();
-	}, {
-		validate: async (req: NextApiRequest, res: NextApiResponse, context?: any) => {
-			if(context.user.role < UserRole.ADMIN){
-				throw new Error;
-			}
-		},
+	},
+	{
+		minRole: UserRole.ADMIN,
 		fullUserContext: true
 	}
 )));

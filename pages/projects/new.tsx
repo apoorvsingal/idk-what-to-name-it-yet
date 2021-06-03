@@ -98,7 +98,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 			</main>
 		</>
 	)
-}
+};
 
 const db = new Database;
 const authHandler = new AuthHandler;
