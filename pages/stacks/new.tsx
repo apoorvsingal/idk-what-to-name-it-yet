@@ -4,7 +4,7 @@ import { TechStack, User } from "../../lib/data";
 import { Database } from "../../lib/db";
 import { AuthHandler } from "../../lib/auth/server";
 import { GetServerSidePropsContext } from "next";
-
+import Head from "next/head";
 type FormValues = {
 	icon: File | null,
 	name: string,
@@ -24,37 +24,40 @@ const NewProjectPage = function ({ user, stacks }: NewStackPageProps) {
 	};
 
 	return (
-		<main className="bg-primary text-secondary w-full h-screen">
-			<Formik
-				initialValues={{ icon: null, name: '', description: '' } as any}
-				validate={validateForm as any}
-				onSubmit={onSubmit}
-			>
-				{({ isSubmitting }) => (
-					<Form className="flex flex-col flex-1 max-w-lg p-6 m-auto">
-						<h2 className="text-base font-medium">Icon:</h2>
-						<ErrorMessage name="icon">
-							{msg => <div className="text-xs text-secondaryPrimaryLight">{msg}</div>}
-						</ErrorMessage>
-						<Field name="icon" type="image" />
+		<>
+			<Head>Kaow - New</Head>
+			<main className="bg-primary text-secondary w-full h-screen">
+				<Formik
+					initialValues={{ icon: null, name: '', description: '' } as any}
+					validate={validateForm as any}
+					onSubmit={onSubmit}
+				>
+					{({ isSubmitting }) => (
+						<Form className="flex flex-col flex-1 max-w-lg p-6 m-auto">
+							<h2 className="text-base font-medium">Icon:</h2>
+							<ErrorMessage name="icon">
+								{msg => <div className="text-xs text-secondaryPrimaryLight">{msg}</div>}
+							</ErrorMessage>
+							<Field name="icon" type="image" />
 
-						<h2 className="text-base font-medium">Name:</h2>
-						<ErrorMessage name="icon">
-							{msg => <div className="text-xs">{msg}</div>}
-						</ErrorMessage>
-						<Field name="name" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
+							<h2 className="text-base font-medium">Name:</h2>
+							<ErrorMessage name="icon">
+								{msg => <div className="text-xs">{msg}</div>}
+							</ErrorMessage>
+							<Field name="name" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-						<h2 className="text-base font-medium">Description:</h2>
-						<ErrorMessage name="icon">
-							{msg => <div className="text-xs">{msg}</div>}
-						</ErrorMessage>
-						<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
+							<h2 className="text-base font-medium">Description:</h2>
+							<ErrorMessage name="icon">
+								{msg => <div className="text-xs">{msg}</div>}
+							</ErrorMessage>
+							<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-						<button type="submit" className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
-					</Form>
-				)}
-			</Formik>
-		</main>
+							<button type="submit" className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
+						</Form>
+					)}
+				</Formik>
+			</main>
+		</>
 	);
 };
 
