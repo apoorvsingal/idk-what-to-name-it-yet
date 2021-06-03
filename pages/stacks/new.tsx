@@ -25,7 +25,9 @@ const NewProjectPage = function ({ user, stacks }: NewStackPageProps) {
 
 	return (
 		<>
-			<Head>Kaow - New</Head>
+			<Head>
+				<title>Kaow - New</title>
+			</Head>
 			<main className="bg-primary text-secondary w-full h-screen">
 				<Formik
 					initialValues={{ icon: null, name: '', description: '' } as any}
@@ -33,7 +35,7 @@ const NewProjectPage = function ({ user, stacks }: NewStackPageProps) {
 					onSubmit={onSubmit}
 				>
 					{({ isSubmitting }) => (
-						<Form className="flex flex-col flex-1 max-w-lg p-6 m-auto">
+						<Form className="flex flex-col flex-1 w-max p-6 m-auto">
 							<h2 className="text-base font-medium">Icon:</h2>
 							<ErrorMessage name="icon">
 								{msg => <div className="text-xs text-secondaryPrimaryLight">{msg}</div>}

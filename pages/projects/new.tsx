@@ -21,7 +21,9 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 
 	return (
 		<>
-			<Head>Kaow - New Project</Head>
+			<Head>
+				<title>Kaow - New Project</title>
+			</Head>
 			<main className="bg-primary text-lg text-secondary w-full h-screen">
 				<Formik
 					initialValues={{
@@ -34,7 +36,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 					onSubmit={onSubmit}
 				>
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-						<Form className="flex flex-col p-6 m-auto">
+						<Form className="flex flex-col p-6 m-auto w-max">
 							<Field name="stack" className="flex items-center justify-center">
 								{({ field }: FieldProps) => (
 									<Listbox {...field} as="div">
