@@ -40,18 +40,22 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							<Field name="stack" className="flex items-center justify-center">
 								{({ field }: FieldProps) => (
 									<Listbox {...field} as="div">
-										<Listbox.Label className="pr-2">Choose Stack</Listbox.Label>
-										<Listbox.Button className="bg-secondaryDark text-primary py-1 px-3 rounded-md text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none">{field.value && field.value.data.name}</Listbox.Button>
-										<Listbox.Options className="block outline-none bg-secondaryDark text-primary px-3 py-1 w-36 cursor-pointer absolute">
-											{stacks.map(stack => (
-												<Listbox.Option
-													key={stack.uid}
-													value={stack}
-												>
-													{stack.data.name}
-												</Listbox.Option>
-											))}
-										</Listbox.Options>
+										<span className="flex flex-row mb-2">
+											<Listbox.Label className="pr-2">Choose Stack</Listbox.Label>
+											<div className="flex flex-col justify-center items-center block w-max">
+												<Listbox.Button className="bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none">{field.value && field.value.data.name}</Listbox.Button>
+												<Listbox.Options className="block cursor-pointer bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none absolute top-14">
+													{stacks.map(stack => (
+														<Listbox.Option
+															key={stack.uid}
+															value={stack}
+														>
+															{stack.data.name}
+														</Listbox.Option>
+													))}
+												</Listbox.Options>
+											</div>
+										</span>
 									</Listbox>
 								)}
 							</Field>
@@ -81,13 +85,13 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							</Field>
 							<ErrorMessage name="projectType" />
 
-							<h2 className="text-base font-medium">Description:</h2>
+							<h2 className="text-base font-medium py-1.5">Description:</h2>
 							<ErrorMessage name="description">
 								{msg => <div className="text-xs">{msg}</div>}
 							</ErrorMessage>
-							<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
+							<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-1 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-							<h2 className="text-base font-medium">Url:</h2>
+							<h2 className="text-base font-medium py-1.5">Url:</h2>
 							<ErrorMessage name="url">
 								{msg => <div className="text-xs">{msg}</div>}
 							</ErrorMessage>
