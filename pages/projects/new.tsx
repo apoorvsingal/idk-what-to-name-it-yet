@@ -40,11 +40,11 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							<Field name="stack" className="flex items-center justify-center">
 								{({ field }: FieldProps) => (
 									<Listbox {...field} as="div">
-										<span className="flex flex-row mb-2">
-											<Listbox.Label className="pr-2">Choose Stack</Listbox.Label>
-											<div className="flex flex-col justify-center items-center block w-max">
+										<span className="flex flex-row mb-2 items-center">
+											<Listbox.Label className="pr-2 mt-0.5">Choose Stack</Listbox.Label>
+											<div className="flex flex-col justify-center items-center block w-max absolute ml-32 top-6">
 												<Listbox.Button className="bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none">{field.value && field.value.data.name}</Listbox.Button>
-												<Listbox.Options className="block cursor-pointer bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none absolute top-14">
+												<Listbox.Options className="block cursor-pointer bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none ">
 													{stacks.map(stack => (
 														<Listbox.Option
 															key={stack.uid}
