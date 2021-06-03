@@ -18,10 +18,10 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 	const onSubmit = () => {
 
 	};
-	
+
 	return (
 		<>
-		<Head>Kaow - New Project</Head>
+			<Head>Kaow - New Project</Head>
 			<main className="bg-primary text-lg text-secondary w-full h-screen">
 				<Formik
 					initialValues={{
