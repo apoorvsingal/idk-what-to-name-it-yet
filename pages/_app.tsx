@@ -17,8 +17,8 @@ const App = function ({ Component, pageProps }: AppProps) {
 			<Head>
 				<link rel="icon" href="/kaow.png"/>
 			</Head>
-			<Component {...pageProps} />;
-	</>
+			<Component {...pageProps} />
+		</>
 	);
 };
 
