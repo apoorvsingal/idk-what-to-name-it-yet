@@ -5,7 +5,6 @@ import { loginWithEmail, loginWithGoogle, loginWithGithub } from "../lib/auth/cl
 import { AuthHandler } from "../lib/auth/server";
 import Link from 'next/link';
 import { GetServerSidePropsContext } from "next";
-
 import Head from 'next/head';
 
 type ValidationErrors = {
