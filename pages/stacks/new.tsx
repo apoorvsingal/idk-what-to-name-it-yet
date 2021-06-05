@@ -74,7 +74,7 @@ export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => 
 		const user = await authHandler.getUser(uid);
 
 		if(user.role < UserRole.ADMIN){
-			throw new Error;
+			return { notFound: true };
 		}
 		return { props: { user } };
 	} catch (error) {
