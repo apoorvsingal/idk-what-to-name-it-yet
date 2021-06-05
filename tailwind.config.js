@@ -4,6 +4,7 @@ module.exports = {
 	theme: {
 		colors: {
 			primary: 'var(--primary)',
+			primaryDark: 'var(--primaryDark)',
 			secondary: 'var(--secondary)',
       		secondaryDark: 'var(--secondaryDark)',
 			secondaryPrimary: 'var(--secondaryPrimary)',

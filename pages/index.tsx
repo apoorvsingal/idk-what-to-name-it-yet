@@ -9,10 +9,16 @@ const Index = () => {
 				<title>Home - Kaow</title>
 			</Head>
 			<main className="bg-primary text-secondary w-full h-screen">
-				<Link href="/signup"><a className="p-1">signup</a></Link>
-				<Link href="/profile"><a className="p-1">profile</a></Link>
-				<Link href="/stacks/new"><a className="p-1">stacks</a></Link>
-				<Link href="/projects/new"><a className="p-1">projects</a></Link>
+				<nav className="bg-primaryDark p-5 flex justify-between">
+					<navlinks className="flex justify-start gap-4">
+					<Link href="/profile"><a>profile</a></Link>
+					<Link href="/stacks/new"><a>stacks</a></Link>
+					<Link href="/projects/new"><a>projects</a></Link>
+					</navlinks>
+					<Link href="/signup"><a className="pl-4">signup</a></Link>
+				</nav>
+				<hero className="flex w-full h-2/4">
+				</hero>
 			</main>
 		</>
 	)
