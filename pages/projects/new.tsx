@@ -36,13 +36,14 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 					onSubmit={onSubmit}
 				>
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-						<Form className="flex flex-col p-6 m-auto w-max">
+						<Form className="flex flex-col p-6 m-auto sm:max-w-3xl w-full">
+						<h1 className="sm:text-5xl py-5 text-3xl">New Project</h1>
 							<Field name="stack" className="flex items-center justify-center">
 								{({ field }: FieldProps) => (
 									<Listbox {...field} as="div">
 										<span className="flex flex-row mb-2 items-center">
 											<Listbox.Label className="pr-2 mt-0.5">Choose Stack</Listbox.Label>
-											<div className="flex flex-col justify-center items-center block w-max absolute ml-32 top-6">
+											<div className="flex flex-col justify-center items-center block w-max absolute ml-32 top-16 mt-12">
 												<Listbox.Button className="bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none">{field.value && field.value.data.name}</Listbox.Button>
 												<Listbox.Options className="block cursor-pointer bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none ">
 													{stacks.map(stack => (
@@ -97,7 +98,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							</ErrorMessage>
 							<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-							<button type="submit" className="bg-secondaryPrimary text-secondary flex mx-auto py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
+							<button type="submit" className="bg-secondaryPrimary text-secondary flex w-max py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
 						</Form>
 					)}
 				</Formik>
