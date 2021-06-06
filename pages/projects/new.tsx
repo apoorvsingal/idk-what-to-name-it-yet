@@ -98,7 +98,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							</ErrorMessage>
 							<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
-							<button type="submit" className="bg-secondaryPrimary text-secondary flex w-max py-2 px-6 rounded-md mt-8 mb-4 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
+							<button type="submit" className="bg-secondaryPrimary text-secondary flex w-max py-2 px-6 rounded-md mt-2 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
 						</Form>
 					)}
 				</Formik>
