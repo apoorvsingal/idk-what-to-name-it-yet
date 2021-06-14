@@ -23,8 +23,8 @@ const ProfilePage = function ({ user }: ProfilePageProps) {
 							className="rounded-full shadow-sm"
 						/>
 						<span className="px-5">
-							<div className="font-bold text-3xl mb-1.5 md:text-4xl">{user.displayName}</div>
-							<div className="font-thin text-primary mb-0.5">@{user.username}</div>
+							<div className="font-thin text-primary mb-0.5">{user.displayName}</div>
+							<div className="font-medium text-2xl mb-1.5 md:text-3xl">@{user.username}</div>
 							<div className="font-light text-primary">{user.bio}</div>
 						</span>
 					</span>
