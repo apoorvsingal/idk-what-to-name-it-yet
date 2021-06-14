@@ -6,11 +6,11 @@ module.exports = {
 			primary: 'var(--primary)',
 			primaryDark: 'var(--primaryDark)',
 			secondary: 'var(--secondary)',
-      		secondaryDark: 'var(--secondaryDark)',
+			secondaryDark: 'var(--secondaryDark)',
 			secondaryPrimary: 'var(--secondaryPrimary)',
 			secondaryPrimaryLight: 'var(--secondaryPrimaryLight)',
 			secondaryPrimaryDark: 'var(--secondaryPrimaryDark)',
-    },
+		},
 		screens: {
 			'sm': '480px',
 			'md': '620px',

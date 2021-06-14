@@ -11,9 +11,9 @@ const Index = () => {
 			<main className="bg-primary text-secondary w-full h-screen">
 				<nav className="bg-primaryDark p-5 flex justify-between">
 					<navlinks className="flex justify-start gap-4">
-					<Link href="/profile"><a>profile</a></Link>
-					<Link href="/stacks/new"><a>stacks</a></Link>
-					<Link href="/projects/new"><a>projects</a></Link>
+						<Link href="/profile"><a>profile</a></Link>
+						<Link href="/stacks/new"><a>stacks</a></Link>
+						<Link href="/projects/new"><a>projects</a></Link>
 					</navlinks>
 					<Link href="/signup"><a className="pl-4">signup</a></Link>
 				</nav>

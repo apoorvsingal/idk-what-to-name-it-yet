@@ -42,7 +42,7 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 								{({ field }: FieldProps) => (
 									<Listbox {...field} as="div">
 										<span className="flex flex-row mb-2 items-center">
-											<Listbox.Label className="pr-2 mt-0.5">Choose Stack</Listbox.Label>
+											<Listbox.Label className="mt-0.5">Choose Stack</Listbox.Label>
 											<div className="flex flex-col justify-center items-center block w-max absolute ml-32 sm:top-14 sm:mt-16 top-11 mt-16">
 												<Listbox.Button className="bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none">{field.value && field.value.data.name}</Listbox.Button>
 												<Listbox.Options className="block cursor-pointer bg-secondaryDark text-primary py-1 px-3 text-base hover:secondaryPrimaryDark transition duration-700 ease-out focus:outline-none disabled:opacity-50 outline-none hover:bg-secondaryDark transition duration-500 ease-out">
@@ -90,13 +90,13 @@ const NewProjectPage = function ({ user, stacks }: { user: User, stacks: TechSta
 							<ErrorMessage name="description">
 								{msg => <div className="text-xs">{msg}</div>}
 							</ErrorMessage>
-							<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-1 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out " />
+							<Field name="description" type="text" className="text-primary p-1 pl-1.5 mb-1 bg-secondaryDark block w-full max-w-lg rounded outline-none border-2 border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out " />
 
 							<h2 className="text-base font-medium py-1.5">Url:</h2>
 							<ErrorMessage name="url">
 								{msg => <div className="text-xs">{msg}</div>}
 							</ErrorMessage>
-							<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
+							<Field name="url" type="text" className="text-primary p-1 pl-1.5 mb-4 bg-secondaryDark block w-full max-w-lg rounded outline-none border-2 border-secondaryDark focus:border-secondaryPrimary transition duration-300 ease-out" />
 
 							<button type="submit" className="bg-secondaryPrimary text-secondary flex w-max py-2 px-6 rounded-md mt-2 text-lg hover:secondaryPrimaryDark transition duration-700 ease-out outline-none disabled:opacity-50" disabled={isSubmitting}>Submit</button>
 						</Form>
