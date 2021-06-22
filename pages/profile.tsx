@@ -23,12 +23,28 @@ const ProfilePage = function ({ user }: ProfilePageProps) {
 							className="rounded-full shadow-sm"
 						/>
 						<span className="px-5">
-							<div className="font-thin text-primary mb-0.5">{user.displayName}</div>
+							<div className="font-thin text-primary text-md mb-0.5">{user.displayName}</div>
 							<div className="font-medium text-2xl mb-1.5 md:text-3xl">@{user.username}</div>
-							<div className="font-light text-primary">{user.bio}</div>
+							<div className="font-light text-primary text-md">{user.bio}</div>
 						</span>
 					</span>
 				</div>
+				// Projects wrap
+				<section className="flex flex-row justify-evenly p-2 overflow-x-auto">
+					// if user has no projects
+					<div className="w-full h-full flex justify-center align-center">
+					// kaka make this work :rage: uwu i assume it has some fancy ts stuff and the uwu
+						<p className="font-semibold text-md text-primaryDark">User has no projects.</p>
+						// card for projects this only basic styling idk if there are thumbnails or smth so this kinda just like a container might also be description so kinda mhm
+						// Lily :rage:
+						<div className="rounded-md p-6 bg-secondaryDark">
+							// in case description mhm
+							// Need to add a character limit on the card :thonkexplode:
+							// also is this going on commit history? help git is holding me captive :pensive:
+							<p className="text-sm text-primaryDark py-2 font-medium overflow-ellipsis"></p>
+						</div>
+					</div>
+				</section>
 			</main>
 		</>
 	)
