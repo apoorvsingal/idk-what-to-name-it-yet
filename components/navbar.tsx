@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
-// import icon from '../public/kaow.png';
 
+
+// mobile nav because too lazy to fix js
 const MobileNav = () => {
 	return (
 		<span className="hidden w-full flex flex-start" id="links">
@@ -16,6 +17,8 @@ const MobileNav = () => {
 	)
 }
 
+
+// someone think of a better name for thid function
 const LargerScreensNav = () => {
 	return (
 		<span className="hidden sm:block">
@@ -36,10 +39,12 @@ const Navbar = () => {
 	}
 	return (
 		<nav className="bg-primaryDark p-2 sm:p-5 flex items-center relative h-auto w-full">
-			<span className="flex flex-col items-start w-full">
-				<span className="flex sm:hidden flex justify-end items-start w-full">
-					{/*<Image src={icon} alt="no"/>*/}
-					<button className="outline-none border-none p-2.5 cursor-pointer flex justify-center items-center focus:outline-none active:bg-primary hover:bg-primary rounded-md transition duration-100" onClick={navLinksToggle}>
+			<span className="flex flex-col sm:flex-row items-start w-full">
+				<span className="flex justify-between items-center w-full">
+				<Link href="/">
+					<a><Image src="/kaow.png" width="20" height="20" className="cursor-pointer" /></a>
+				</Link>
+					<button className="outline-none border-none p-2.5 cursor-pointer flex justify-center items-center focus:outline-none active:bg-primary hover:bg-primary rounded-md transition duration-100 sm:hidden" onClick={navLinksToggle}>
 						<svg viewBox="0 0 100 80" width="20" height="20" className="fill-current outline-none">
 							<rect width="100" height="10"></rect>
 							<rect y="30" width="100" height="10"></rect>
