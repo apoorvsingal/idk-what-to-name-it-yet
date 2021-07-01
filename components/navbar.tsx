@@ -39,13 +39,13 @@ const Navbar = () => {
 	}
 	return (
 		<nav className="bg-primaryDark p-2 sm:p-5 flex items-center relative h-auto w-full">
-			<span className="flex flex-col sm:flex-row items-start w-full">
+			<span className="flex flex-col sm:flex-row sm:items-center items-start w-full">
 				<span className="flex justify-between items-center w-full">
 				<Link href="/">
-					<a><Image src="/kaow.png" width="20" height="20" className="cursor-pointer" /></a>
+					<a className="px-1 sm:px-2"><Image src="/kaow.png" width="22" height="22" className="cursor-pointer" /></a>
 				</Link>
 					<button className="outline-none border-none p-2.5 cursor-pointer flex justify-center items-center focus:outline-none active:bg-primary hover:bg-primary rounded-md transition duration-100 sm:hidden" onClick={navLinksToggle}>
-						<svg viewBox="0 0 100 80" width="20" height="20" className="fill-current outline-none">
+						<svg viewBox="0 0 100 80" width="20" height="20" className="fill-current">
 							<rect width="100" height="10"></rect>
 							<rect y="30" width="100" height="10"></rect>
 							<rect y="60" width="100" height="10"></rect>
